@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SmartIrrigation.Application
+namespace DevMeteoStat
 {
     public class Class1
     {

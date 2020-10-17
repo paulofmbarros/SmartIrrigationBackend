@@ -8,5 +8,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartIrrigation.Application\SmartIrrigation.Application.csproj" />
+    <ProjectReference Include="..\SmartIrrigation.Domain\SmartIrrigation.Domain.csproj" />
+  </ItemGroup>
+
 
 </Project>
