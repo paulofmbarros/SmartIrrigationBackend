@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevMeteoStat.WeatherStationsData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartIrrigation.Application;
 using SmartIrrigation.Domain;
+using SmartIrrigation.Domain.WeatherStation;
 
 namespace SmartIrrigationBackend
 {
@@ -29,8 +31,14 @@ namespace SmartIrrigationBackend
         {
 
 
+
             services.AddScoped<IWeatherForecastApplication, WeatherForecastApplication>();
+            services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
+            services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
+            services.AddScoped<IWeatherStationsData, WeatherStationsData>();
+
+
 
             services.AddControllers();
             services.AddSwaggerGen();
