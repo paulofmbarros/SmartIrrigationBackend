@@ -6,7 +6,7 @@ namespace SmartIrrigation.Domain.WeatherStation
 {
     public interface IWeatherStationDomain
     {
-        string FindWeatherStation(string query);
+        string FindWeatherStation(string query, int? limit);
 
     }
 }

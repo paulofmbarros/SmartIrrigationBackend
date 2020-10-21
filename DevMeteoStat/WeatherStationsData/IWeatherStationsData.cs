@@ -6,6 +6,6 @@ namespace DevMeteoStat.WeatherStationsData
 {
    public interface IWeatherStationsData
    {
-       string FindWeatherStation(string query);
+       string FindWeatherStation(string query, int? limit);
    }
 }

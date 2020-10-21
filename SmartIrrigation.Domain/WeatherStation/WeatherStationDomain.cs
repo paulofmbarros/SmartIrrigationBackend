@@ -14,7 +14,7 @@ namespace SmartIrrigation.Domain.WeatherStation
            _weatherStationsData = weatherStationsData;
        }
 
-       public string FindWeatherStation(string query) => _weatherStationsData.FindWeatherStation(query);
+       public string FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
 
    }
 }

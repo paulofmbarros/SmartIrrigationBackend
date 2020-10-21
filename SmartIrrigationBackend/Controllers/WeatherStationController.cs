@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Domain.WeatherStation;
+using SmartIrrigationBackend.Models;
 
 namespace SmartIrrigationBackend.Controllers
 {
@@ -19,10 +20,15 @@ namespace SmartIrrigationBackend.Controllers
         {
             _weatherStationDomain = weatherStationDomain;
         }
-        [HttpPost]
-        public IActionResult AddStation([FromBody] object query)
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("AddStation")]
+        public IActionResult AddStation([FromBody] FindStationModel findStationParams)
         {
-            _weatherStationDomain.FindWeatherStation("vancouver");
+            _weatherStationDomain.FindWeatherStation(findStationParams.Query, findStationParams.Limit);
             return Ok();
         }
     }
