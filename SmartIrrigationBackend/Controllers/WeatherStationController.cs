@@ -37,7 +37,7 @@ namespace SmartIrrigationBackend.Controllers
         /// </summary>
         /// <param name="findStationParams"></param>
         /// <returns></returns>
-        [HttpPost("AddStation")]
+        [HttpPost("FindNearByStation")]
         public IActionResult FindNearByStation([FromBody] FindNearbyStationModel findStationParams)
         {
             _weatherStationDomain.FindNearByStation(findStationParams);
