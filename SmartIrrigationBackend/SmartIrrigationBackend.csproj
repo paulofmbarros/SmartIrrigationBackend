@@ -12,6 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartIrrigation.Application\SmartIrrigation.Application.csproj" />
     <ProjectReference Include="..\SmartIrrigation.Domain\SmartIrrigation.Domain.csproj" />
+    <ProjectReference Include="..\SmartIrrigationModels\SmartIrrigationModels.csproj" />
   </ItemGroup>
 
 

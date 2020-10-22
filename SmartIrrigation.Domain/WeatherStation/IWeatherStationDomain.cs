@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SmartIrrigationModels.Models;
 
 namespace SmartIrrigation.Domain.WeatherStation
 {
@@ -8,5 +9,6 @@ namespace SmartIrrigation.Domain.WeatherStation
     {
         string FindWeatherStation(string query, int? limit);
 
+        void FindNearByStation(FindNearbyStationModel findStationParams);
     }
 }

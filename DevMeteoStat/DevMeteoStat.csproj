@@ -11,4 +11,8 @@
     <PackageReference Include="RestSharp" Version="105.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SmartIrrigationModels\SmartIrrigationModels.csproj" />
+  </ItemGroup>
+
 </Project>

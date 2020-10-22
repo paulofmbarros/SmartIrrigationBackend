@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using DevMeteoStat.WeatherStationsData;
+using SmartIrrigationModels.Models;
 
 namespace SmartIrrigation.Domain.WeatherStation
 {
@@ -15,6 +16,7 @@ namespace SmartIrrigation.Domain.WeatherStation
        }
 
        public string FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
-
+       public void FindNearByStation(FindNearbyStationModel findStationParams) => _weatherStationsData.FindNearByStation(findStationParams);
+       
    }
 }
