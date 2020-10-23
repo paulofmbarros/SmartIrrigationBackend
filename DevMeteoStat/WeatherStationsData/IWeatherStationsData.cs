@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
+using SmartIrrigationModels.Models.WeatherStation;
 
 namespace DevMeteoStat.WeatherStationsData
 {
    public interface IWeatherStationsData
    {
        string FindWeatherStation(string query, int? limit);
-       void FindNearByStation(FindNearbyStationModel findStationParams);
+       RootWeatherStationModel FindNearByStation(FindNearbyStationModel findStationParams);
    }
 }

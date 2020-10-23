@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SmartIrrigation.Application;
+using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
 using SmartIrrigation.Domain.WeatherStation;
 
@@ -36,6 +37,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
+            services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
             services.AddScoped<IWeatherStationsData, WeatherStationsData>();
 
 

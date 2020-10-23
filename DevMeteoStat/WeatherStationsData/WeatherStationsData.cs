@@ -36,7 +36,7 @@ namespace DevMeteoStat.WeatherStationsData
 
         }
 
-        public void FindNearByStation(FindNearbyStationModel findNearbyStationModel)
+        public RootWeatherStationModel FindNearByStation(FindNearbyStationModel findNearbyStationModel)
         {
             RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/nearby");
             var request = new RestRequest();
@@ -54,7 +54,7 @@ namespace DevMeteoStat.WeatherStationsData
 
 
             var response = client.Execute(request);
-            var x = JsonConvert.DeserializeObject<RootWeatherStationModel>(response.Content);
+            return JsonConvert.DeserializeObject<RootWeatherStationModel>(response.Content);
        
 
 

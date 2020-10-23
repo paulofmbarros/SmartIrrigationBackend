@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
@@ -16,11 +17,11 @@ namespace SmartIrrigationBackend.Controllers
     [ApiController]
     public class WeatherStationController : ControllerBase
     {
-        private readonly IWeatherStationDomain _weatherStationDomain;
+        private readonly IWeatherStationApplication _weatherStationApplication;
 
-        public WeatherStationController(IWeatherStationDomain weatherStationDomain)
+        public WeatherStationController(IWeatherStationApplication weatherStationApplication)
         {
-            _weatherStationDomain = weatherStationDomain;
+            _weatherStationApplication = weatherStationApplication;
         }
         /// <summary>
         /// Add a new Weather station to database
@@ -30,7 +31,7 @@ namespace SmartIrrigationBackend.Controllers
         [HttpPost("AddStation")]
         public IActionResult AddStation([FromBody] FindStationModel findStationParams)
         {
-            _weatherStationDomain.FindWeatherStation(findStationParams.Query, findStationParams.Limit);
+            _weatherStationApplication.FindWeatherStation(findStationParams.Query, findStationParams.Limit);
             return Ok();
         }
 
@@ -39,11 +40,11 @@ namespace SmartIrrigationBackend.Controllers
         /// </summary>
         /// <param name="findStationParams"></param>
         /// <returns></returns>
-        [HttpPost("FindNearByStation")]
-        public IActionResult FindNearByStation([FromBody] FindNearbyStationModel findStationParams)
+        [HttpGet("FindNearByStation")]
+        public IActionResult FindNearByStation([FromQuery] FindNearbyStationModel findStationParams)
         {
-            _weatherStationDomain.FindNearByStation(findStationParams);
-            return Ok();
+            RootWeatherStationModel data = _weatherStationApplication.FindNearByStation(findStationParams);
+            return Ok(data);
         }
     }
 }
