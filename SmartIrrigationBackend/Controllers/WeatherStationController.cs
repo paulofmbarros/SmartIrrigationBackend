@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.NearByStation;
+using SmartIrrigationModels.Models.WeatherStation;
 
 namespace SmartIrrigationBackend.Controllers
 {

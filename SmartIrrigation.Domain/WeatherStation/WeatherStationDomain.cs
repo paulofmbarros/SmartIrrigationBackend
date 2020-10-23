@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DevMeteoStat.WeatherStationsData;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.NearByStation;
 
 namespace SmartIrrigation.Domain.WeatherStation
 {

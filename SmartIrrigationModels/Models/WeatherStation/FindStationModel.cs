@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartIrrigationModels.Models
+﻿namespace SmartIrrigationModels.Models.WeatherStation
 {
     public class FindStationModel
     {
