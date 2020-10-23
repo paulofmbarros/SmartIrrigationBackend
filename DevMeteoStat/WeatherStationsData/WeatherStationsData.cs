@@ -9,13 +9,14 @@ using Newtonsoft.Json;
 using RestSharp;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
+using SmartIrrigationModels.Models.WeatherData;
 using SmartIrrigationModels.Models.WeatherStation;
 
 namespace DevMeteoStat.WeatherStationsData
 {
     public class WeatherStationsData : IWeatherStationsData
     {
-        public string FindWeatherStation(string query, int? limit)
+        public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit)
         {
             
             RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/search");
@@ -30,18 +31,15 @@ namespace DevMeteoStat.WeatherStationsData
             request.AddParameter("limit", limit);
 
             var response = client.Execute(request);
-            var result = response.Content;
-            
-            return result;
+            return JsonConvert.DeserializeObject<RootWeatherStationModel<WeatherStationWithParamsModel>>(response.Content);
+
 
         }
 
-        public RootWeatherStationModel FindNearByStation(FindNearbyStationModel findNearbyStationModel)
+        public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findNearbyStationModel)
         {
             RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/nearby");
             var request = new RestRequest();
-            List<NearbyWeatherStationModel> ListWeatherStations = new List<NearbyWeatherStationModel>();
-
             request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
@@ -54,11 +52,66 @@ namespace DevMeteoStat.WeatherStationsData
 
 
             var response = client.Execute(request);
-            return JsonConvert.DeserializeObject<RootWeatherStationModel>(response.Content);
+            return JsonConvert.DeserializeObject<RootWeatherStationModel<NearbyWeatherStationModel>>(response.Content);
        
 
 
 
+        }
+
+        public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfStation(HourlyDataOfStationQueryParams hourlyDataOfStationParams)
+        {
+            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/hourly");
+            var request = new RestRequest();
+            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("User-Agent", "runscope/0.1");
+            request.AddHeader("Accept", "*/*");
+            request.Method = Method.GET;
+            request.AddParameter("station", hourlyDataOfStationParams.Station, ParameterType.QueryString);
+            request.AddParameter("start", hourlyDataOfStationParams.Start, ParameterType.QueryString);
+            request.AddParameter("end", hourlyDataOfStationParams.End, ParameterType.QueryString);
+            request.RequestFormat = DataFormat.Json;
+
+
+            var response = client.Execute(request);
+            return JsonConvert.DeserializeObject<RootWeatherDataModel<HourlyDataModel>>(response.Content);
+        }
+
+        public RootWeatherDataModel<DailyDataModel> GetDailyDataOfStation(DailyDataOfStationQueryParams dailyDataOfStationParams)
+        {
+            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/daily");
+            var request = new RestRequest();
+            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("User-Agent", "runscope/0.1");
+            request.AddHeader("Accept", "*/*");
+            request.Method = Method.GET;
+            request.AddParameter("station", dailyDataOfStationParams.Station, ParameterType.QueryString);
+            request.AddParameter("start", dailyDataOfStationParams.Start, ParameterType.QueryString);
+            request.AddParameter("end", dailyDataOfStationParams.End, ParameterType.QueryString);
+            request.RequestFormat = DataFormat.Json;
+
+
+            var response = client.Execute(request);
+            return JsonConvert.DeserializeObject<RootWeatherDataModel<DailyDataModel>>(response.Content);
+        }
+
+        public RootWeatherDataModel<ClimateNormalsDataModel> GetClimateNormalsOfAStation(string stationId)
+        {
+            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/climate");
+            var request = new RestRequest();
+            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("Accept-Encoding", "gzip, deflate");
+            request.AddHeader("User-Agent", "runscope/0.1");
+            request.AddHeader("Accept", "*/*");
+            request.Method = Method.GET;
+            request.AddParameter("station", stationId, ParameterType.QueryString);
+            request.RequestFormat = DataFormat.Json;
+
+
+            var response = client.Execute(request);
+            return JsonConvert.DeserializeObject<RootWeatherDataModel<ClimateNormalsDataModel>>(response.Content);
         }
     }
 }

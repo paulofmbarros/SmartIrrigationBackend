@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
+using SmartIrrigationModels.Models.WeatherData;
 using SmartIrrigationModels.Models.WeatherStation;
 
 namespace SmartIrrigation.Domain.WeatherStation
@@ -11,14 +13,26 @@ namespace SmartIrrigation.Domain.WeatherStation
    public class WeatherStationDomain :IWeatherStationDomain
    {
        private readonly IWeatherStationsData _weatherStationsData;
+       private readonly IPointData _pointData;
 
-       public WeatherStationDomain(IWeatherStationsData weatherStationsData)
+       public WeatherStationDomain(IWeatherStationsData weatherStationsData, IPointData pointData)
        {
            _weatherStationsData = weatherStationsData;
+           _pointData = pointData;
        }
 
-       public string FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
-       public RootWeatherStationModel FindNearByStation(FindNearbyStationModel findStationParams) => _weatherStationsData.FindNearByStation(findStationParams);
-       
-   }
+       public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
+       public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams) => _weatherStationsData.FindNearByStation(findStationParams);
+       public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfStation(HourlyDataOfStationQueryParams hourlyDataOfStationParams) => _weatherStationsData.GetHourlyDataOfStation(hourlyDataOfStationParams);
+       public RootWeatherDataModel<DailyDataModel> GetDailyDataOfStation(DailyDataOfStationQueryParams dailyDataOfStationParams)=> _weatherStationsData.GetDailyDataOfStation(dailyDataOfStationParams);
+       public RootWeatherDataModel<ClimateNormalsDataModel> GetClimateNormalsOfAStation(string stationId)=> _weatherStationsData.GetClimateNormalsOfAStation(stationId);
+
+       public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfPoint(
+           HourlyDataOfAPointQueryParams hourlyDataOfAPointParams) =>
+           _pointData.GetHourlyDataOfPoint(hourlyDataOfAPointParams);
+
+       public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams)=> _pointData.DailyDataOfAPoint(dailyDataOfAPointParams);
+       public RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt) => _pointData.ClimateNormalsOfAPoint(lat,lon,alt);
+
+    }
 }

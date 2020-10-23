@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -39,6 +40,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
             services.AddScoped<IWeatherStationsData, WeatherStationsData>();
+            services.AddScoped<IPointData, PointData>();
 
 
 

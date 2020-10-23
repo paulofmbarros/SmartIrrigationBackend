@@ -3,9 +3,9 @@ using SmartIrrigationModels.Models.NearByStation;
 
 namespace SmartIrrigationModels.Models.WeatherStation
 {
-    public class RootWeatherStationModel
+    public class RootWeatherStationModel<T> where T : WeatherStationModel
     {
-        public List<NearbyWeatherStationModel> Data { get; set; }
+        public List<T> Data { get; set; }
 
     }
 
