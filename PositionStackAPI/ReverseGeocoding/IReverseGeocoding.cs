@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.Geocoding;
 
 namespace PositionStackAPI.ReverseGeocoding
 {
     public interface IReverseGeocoding
     {
-        void GetAddressFromCoords(string latitude, string longitude);
+        RootGeocodingDataModel<GeocodingAddressResponseModel> GetAddressFromCoords(string latitude, string longitude);
     }
 }

@@ -18,20 +18,20 @@ namespace PositionStackAPI.ForwardGeocoding
         {
             _config = config;
         }
-        public void GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams)
+        public RootGeocodingDataModel<GeocodingAddressResponseModel> GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams)
         {
             RestClient client = new RestClient($"{_config.GetConfiguration("PositionStackAPI:APIBASICURI")}forward");
             var request = new RestRequest();
 
-            request.AddHeader("access_key ", _config.GetConfiguration("PositionStackAPI:APIKEY"));
             request.AddHeader("Accept", "*/*");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.Method = Method.GET;
+            request.AddParameter("access_key", _config.GetConfiguration("PositionStackAPI:APIKEY"));
             request.AddParameter("query", $"{queryparams.Street} {queryparams.County},{queryparams.District}");
 
             var response = client.Execute(request);
-            //return JsonConvert.DeserializeObject<RootWeatherStationModel<WeatherStationWithParamsModel>>(response.Content);
+            return JsonConvert.DeserializeObject<RootGeocodingDataModel<GeocodingAddressResponseModel>>(response.Content);
 
         }
     }

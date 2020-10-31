@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.Geocoding;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigationBackend.Controllers
@@ -21,16 +22,16 @@ namespace SmartIrrigationBackend.Controllers
         [HttpGet("Geocoding")]
         public IActionResult GetCoordsFromAddress([FromQuery] GeocodingAddressModelQueryParams queryparams)
         {
-            _geocodingApplication.GetCoordsFromAddress(queryparams);
-            return Ok();
+            RootGeocodingDataModel<GeocodingAddressResponseModel> data = _geocodingApplication.GetCoordsFromAddress(queryparams);
+            return Ok(data);
         }
 
         [HttpGet("ReverseGeocoding")]
         public IActionResult GetAdressFromCoords(string latitude, string longitude)
         {
-            _geocodingApplication.GetAddressFromCoords(latitude,longitude);
+            RootGeocodingDataModel<GeocodingAddressResponseModel> data = _geocodingApplication.GetAddressFromCoords(latitude,longitude);
 
-            return Ok();
+            return Ok(data);
         }
     }
 }

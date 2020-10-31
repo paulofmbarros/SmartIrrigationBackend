@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using PositionStackAPI.ForwardGeocoding;
 using PositionStackAPI.ReverseGeocoding;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigation.Domain.Geocoding
@@ -19,12 +20,12 @@ namespace SmartIrrigation.Domain.Geocoding
             _forwardGeocoding = forwardGeocoding;
         }
 
-        public void GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams) =>
+        public RootGeocodingDataModel<GeocodingAddressResponseModel> GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams) =>
             _forwardGeocoding.GetCoordsFromAddress(queryparams);
 
 
 
-        public void GetAddressFromCoords(string latitude, string longitude) =>
+        public RootGeocodingDataModel<GeocodingAddressResponseModel> GetAddressFromCoords(string latitude, string longitude) =>
             _reverseGeocoding.GetAddressFromCoords(latitude, longitude);
 
 

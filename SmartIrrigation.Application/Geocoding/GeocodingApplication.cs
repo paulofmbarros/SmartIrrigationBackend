@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SmartIrrigation.Domain.Geocoding;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigation.Application.Geocoding
@@ -15,12 +16,12 @@ namespace SmartIrrigation.Application.Geocoding
             _geocodongDomain = geocodongDomain;
         }
 
-        public void GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams) =>
+        public RootGeocodingDataModel<GeocodingAddressResponseModel> GetCoordsFromAddress(GeocodingAddressModelQueryParams queryparams) =>
             _geocodongDomain.GetCoordsFromAddress(queryparams);
 
 
 
-        public void GetAddressFromCoords(string latitude, string longitude) =>
+        public RootGeocodingDataModel<GeocodingAddressResponseModel> GetAddressFromCoords(string latitude, string longitude) =>
             _geocodongDomain.GetAddressFromCoords(latitude, longitude);
 
 

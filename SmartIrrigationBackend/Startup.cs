@@ -12,9 +12,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using PositionStackAPI.ForwardGeocoding;
+using PositionStackAPI.ReverseGeocoding;
 using SmartIrrigation.Application;
+using SmartIrrigation.Application.Geocoding;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
+using SmartIrrigation.Domain.Geocoding;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationConfigurationService;
 
@@ -43,6 +47,10 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationsData, WeatherStationsData>();
             services.AddScoped<IPointData, PointData>();
             services.AddScoped<IConfig, Config>();
+            services.AddScoped<IGeocodingApplication, GeocodingApplication>();
+            services.AddScoped<IGeocodingDomain, GeocodingDomain>();
+            services.AddScoped<IForwardGeocodingService, ForwardGeocodingService>();
+            services.AddScoped<IReverseGeocoding, ReverseGeocoding>();
 
 
 
