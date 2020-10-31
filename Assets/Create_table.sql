@@ -36,3 +36,30 @@ Description nvarchar(250),
 Id_Location int foreign key references Location(Id_Location),
 Id_NearStation int foreign key references Station(Id_Station)
 )
+
+Create table Hist_Evaporation(
+Id_HistEvaporation int primary key not null, 
+Reading_date datetime,
+Minimum float,
+Maxi float,
+Range float,
+Mean float,
+Std float,
+Id_County smallint foreign key references Counties(CountyId)
+)
+
+Create table Hist_Reading(
+Id_HistReading int primary key not null,
+DateReading datetime default getdate(),
+Temperature float,
+Dwpt float,
+Rhum int,
+Prcp float,
+Snow int,
+Wdir int,
+Wspd float,
+Wpgt float,
+Pres float,
+Tsun integer,
+Coco integer
+)

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using DevMeteoStat.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using SmartIrrigationConfigurationService;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.WeatherData;
 using SmartIrrigationModels.Models.WeatherStation;
@@ -12,12 +12,18 @@ namespace DevMeteoStat
 {
     public class PointData : IPointData
     {
+        private readonly IConfig _config;
+
+        public PointData(IConfig config)
+        {
+            _config = config;
+        }
         public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfPoint(HourlyDataOfAPointQueryParams hourlyDataOfAPointParams)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}point/hourly");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}point/hourly");
             var request = new RestRequest();
 
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept", "*/*");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
@@ -35,9 +41,9 @@ namespace DevMeteoStat
 
         public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}point/daily");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}point/daily");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");
@@ -56,9 +62,9 @@ namespace DevMeteoStat
 
         public RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}point/climate");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}point/climate");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");

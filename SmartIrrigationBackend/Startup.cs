@@ -16,6 +16,7 @@ using SmartIrrigation.Application;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
 using SmartIrrigation.Domain.WeatherStation;
+using SmartIrrigationConfigurationService;
 
 namespace SmartIrrigationBackend
 {
@@ -41,6 +42,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
             services.AddScoped<IWeatherStationsData, WeatherStationsData>();
             services.AddScoped<IPointData, PointData>();
+            services.AddScoped<IConfig, Config>();
 
 
 

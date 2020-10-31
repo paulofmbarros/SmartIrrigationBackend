@@ -5,29 +5,26 @@ using System.Reflection;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 
-namespace DevMeteoStat.Configuration
+namespace SmartIrrigationConfigurationService
 {
-    public static class Config 
+    public class Config :IConfig
     {
-        
-        private static readonly IConfiguration configuration;
-        static Config()
+        private  readonly IConfiguration configuration;
+        public Config()
         {
             var builder = new ConfigurationBuilder().SetBasePath(
                     Path.Combine(
-                        Directory.GetParent(Directory.GetCurrentDirectory()).ToString(), 
+                        Directory.GetParent(Directory.GetCurrentDirectory()).ToString(),
                         Assembly.GetExecutingAssembly().GetName().Name)
-                                )
+                )
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             configuration = builder.Build();
         }
 
-        public static string GetConfiguration(string name)
+        public string GetConfiguration(string name)
         {
             string appSettings = configuration[name];
             return appSettings;
         }
-
-
     }
 }

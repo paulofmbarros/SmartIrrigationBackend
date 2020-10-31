@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
-using DevMeteoStat.Configuration;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using RestSharp;
+using SmartIrrigationConfigurationService;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
 using SmartIrrigationModels.Models.WeatherData;
@@ -16,13 +18,19 @@ namespace DevMeteoStat.WeatherStationsData
 {
     public class WeatherStationsData : IWeatherStationsData
     {
+        private readonly IConfig _config;
+
+        public WeatherStationsData(IConfig config)
+        {
+            _config = config;
+        }
         public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit)
         {
             
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/search");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}stations/search");
             var request = new RestRequest();
 
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept", "*/*");
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
@@ -38,9 +46,9 @@ namespace DevMeteoStat.WeatherStationsData
 
         public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findNearbyStationModel)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/nearby");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi.APIBASICURI")}stations/nearby");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");
@@ -61,9 +69,9 @@ namespace DevMeteoStat.WeatherStationsData
 
         public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfStation(HourlyDataOfStationQueryParams hourlyDataOfStationParams)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/hourly");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}stations/hourly");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");
@@ -80,9 +88,9 @@ namespace DevMeteoStat.WeatherStationsData
 
         public RootWeatherDataModel<DailyDataModel> GetDailyDataOfStation(DailyDataOfStationQueryParams dailyDataOfStationParams)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/daily");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}stations/daily");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");
@@ -99,9 +107,9 @@ namespace DevMeteoStat.WeatherStationsData
 
         public RootWeatherDataModel<ClimateNormalsDataModel> GetClimateNormalsOfAStation(string stationId)
         {
-            RestClient client = new RestClient($"{Config.GetConfiguration("APIBASICURI")}stations/climate");
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}stations/climate");
             var request = new RestRequest();
-            request.AddHeader("x-api-key", Config.GetConfiguration("APIKEY"));
+            request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
             request.AddHeader("User-Agent", "runscope/0.1");
             request.AddHeader("Accept", "*/*");
