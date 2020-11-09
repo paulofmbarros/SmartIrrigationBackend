@@ -27,11 +27,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartIrrigationModels", "Sm
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExternalAPIs", "ExternalAPIs", "{B15AF20C-811D-4808-8FA3-6084DBBBDC7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PositionStackAPI", "PositionStackAPI\PositionStackAPI.csproj", "{4671594F-658E-4736-A914-B16071A025FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PositionStackAPI", "PositionStackAPI\PositionStackAPI.csproj", "{4671594F-658E-4736-A914-B16071A025FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configuration", "{4AED8270-2F8F-46E5-94DE-E0A943C489AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartIrrigationConfigurationService", "SmartIrrigationConfigurationService\SmartIrrigationConfigurationService.csproj", "{255FF066-E616-4070-9781-15713F133E61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartIrrigationConfigurationService", "SmartIrrigationConfigurationService\SmartIrrigationConfigurationService.csproj", "{255FF066-E616-4070-9781-15713F133E61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeatherMapAPI", "OpenWeatherMapAPI\OpenWeatherMapAPI.csproj", "{7B4541F5-EB9B-42E2-9F79-7CA07F848359}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +73,10 @@ Global
 		{255FF066-E616-4070-9781-15713F133E61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{255FF066-E616-4070-9781-15713F133E61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{255FF066-E616-4070-9781-15713F133E61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B4541F5-EB9B-42E2-9F79-7CA07F848359}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B4541F5-EB9B-42E2-9F79-7CA07F848359}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B4541F5-EB9B-42E2-9F79-7CA07F848359}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B4541F5-EB9B-42E2-9F79-7CA07F848359}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{4671594F-658E-4736-A914-B16071A025FB} = {B15AF20C-811D-4808-8FA3-6084DBBBDC7F}
 		{4AED8270-2F8F-46E5-94DE-E0A943C489AE} = {2CE13C9D-2018-4FDB-8270-BBA0A69EFDBD}
 		{255FF066-E616-4070-9781-15713F133E61} = {4AED8270-2F8F-46E5-94DE-E0A943C489AE}
+		{7B4541F5-EB9B-42E2-9F79-7CA07F848359} = {B15AF20C-811D-4808-8FA3-6084DBBBDC7F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F31B5CE-7E81-4354-8565-7FB376771129}

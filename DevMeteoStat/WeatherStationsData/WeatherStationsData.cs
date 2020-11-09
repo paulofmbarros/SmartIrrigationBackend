@@ -46,7 +46,8 @@ namespace DevMeteoStat.WeatherStationsData
 
         public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findNearbyStationModel)
         {
-            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi.APIBASICURI")}stations/nearby");
+
+            RestClient client = new RestClient($"{_config.GetConfiguration("DevMeteoStatApi:APIBASICURI")}stations/nearby");
             var request = new RestRequest();
             request.AddHeader("x-api-key", _config.GetConfiguration("DevMeteoStatApi:APIKEY"));
             request.AddHeader("Accept-Encoding", "gzip, deflate");
