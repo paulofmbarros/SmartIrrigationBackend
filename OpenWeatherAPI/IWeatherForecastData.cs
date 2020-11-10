@@ -4,9 +4,9 @@ using System.Text;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.WeatherForecast;
 
-namespace SmartIrrigation.Domain
+namespace OpenWeatherAPI
 {
-    public interface IWeatherForecastDomain
+    public interface IWeatherForecastData
     {
         RootWeatherForecast<Daily> GetWeatherForecast(string latitude, string longitude);
     }

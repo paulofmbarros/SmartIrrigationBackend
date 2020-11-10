@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using SmartIrrigation.Domain;
+using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.WeatherForecast;
 
 namespace SmartIrrigation.Application
 {
@@ -12,5 +14,9 @@ namespace SmartIrrigation.Application
         {
             _weatherForecastDomain = weatherForecastDomain;
         }
+
+        public RootWeatherForecast<Daily> GetWeatherForecast(string latitude, string longitude) => _weatherForecastDomain.GetWeatherForecast(latitude, longitude);
+
+
     }
 }

@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OpenWeatherAPI;
 using PositionStackAPI.ForwardGeocoding;
 using PositionStackAPI.ReverseGeocoding;
 using SmartIrrigation.Application;
@@ -42,6 +43,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherForecastApplication, WeatherForecastApplication>();
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
+            services.AddScoped<IWeatherForecastData, WeatherForecastData>();
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
             services.AddScoped<IWeatherStationsData, WeatherStationsData>();
