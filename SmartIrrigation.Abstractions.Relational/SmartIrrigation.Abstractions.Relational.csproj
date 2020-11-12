@@ -14,7 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Creates\" />
     <Folder Include="Deletes\" />
     <Folder Include="Updates\" />
   </ItemGroup>

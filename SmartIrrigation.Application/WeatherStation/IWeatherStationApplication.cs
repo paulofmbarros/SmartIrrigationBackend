@@ -19,5 +19,6 @@ namespace SmartIrrigation.Application.WeatherStation
         RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfPoint(HourlyDataOfAPointQueryParams hourlyDataOfAPointParams);
         RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams);
         RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint( float lat,  float lon,  int alt);
+        object GetHistoryEvaporationByCountyName(string countyName);
     }
 }

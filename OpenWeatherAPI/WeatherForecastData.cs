@@ -41,7 +41,7 @@ namespace OpenWeatherAPI
             catch (Exception ex)
             {
                 return  new RootWeatherForecast<Daily>();
-                ;
+                
             }
             
 

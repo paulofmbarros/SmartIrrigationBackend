@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DevMeteoStat\DevMeteoStat.csproj" />
+    <ProjectReference Include="..\IpmaAPI\IpmaAPI.csproj" />
     <ProjectReference Include="..\OpenWeatherAPI\OpenWeatherAPI.csproj" />
     <ProjectReference Include="..\PositionStackAPI\PositionStackAPI.csproj" />
     <ProjectReference Include="..\SmartIrrigation.Abstractions.Relational\SmartIrrigation.Abstractions.Relational.csproj" />

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
+using IpmaAPI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +17,7 @@ using OpenWeatherAPI;
 using PositionStackAPI.ForwardGeocoding;
 using PositionStackAPI.ReverseGeocoding;
 using SmartIrrigation.Abstractions.Relational.Configuration;
+using SmartIrrigation.Abstractions.Relational.Creates;
 using SmartIrrigation.Abstractions.Relational.Reads;
 using SmartIrrigation.Application;
 using SmartIrrigation.Application.BasicCRUD;
@@ -65,6 +67,7 @@ namespace SmartIrrigationBackend
             //RELATIONAL
             services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
             services.AddScoped<IReadDistrictInformation, ReadDistrictInformation>();
+            services.AddScoped<IEvaporationRepository, EvaporationRepository>();
 
 
             //CONFIG
@@ -77,6 +80,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IPointData, PointData>();
             services.AddScoped<IForwardGeocodingService, ForwardGeocodingService>();
             services.AddScoped<IReverseGeocoding, ReverseGeocoding>();
+            services.AddScoped<IIpmaDataRequisitions, IpmaDataRequisitions>();
 
 
             services.AddControllers();

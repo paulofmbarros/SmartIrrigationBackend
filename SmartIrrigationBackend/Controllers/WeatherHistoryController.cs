@@ -114,5 +114,17 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<ClimateNormalsOfAPointDataModel> data = _weatherStationApplication.ClimateNormalsOfAPoint(lat,lon,alt);
             return Ok(data);
         }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpGet("GetHistoryEvaporationByCountyName")]
+        public IActionResult GetHistoryEvaporationByCountyName(string countyName)
+        {
+            var data = _weatherStationApplication.GetHistoryEvaporationByCountyName(countyName);
+            return Ok(data);
+        }
     }
 }
