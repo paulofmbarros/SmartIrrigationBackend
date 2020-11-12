@@ -9,7 +9,9 @@ namespace SmartIrrigation.Abstractions.Relational.Configuration
 {
     public class ConfigRelational :IConfigRelational
     {
-        public string GetConnectionString()
+        private readonly IConfiguration configuration;
+
+        public ConfigRelational()
         {
             var builder = new ConfigurationBuilder().SetBasePath(
                     Path.Combine(
@@ -17,7 +19,12 @@ namespace SmartIrrigation.Abstractions.Relational.Configuration
                         Assembly.GetExecutingAssembly().GetName().Name)
                 )
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-            return builder.Build().ToString();
+            configuration = builder.Build();
+        }
+        public string GetConnectionString(string name)
+        {
+            string appSettings = configuration[name];
+            return appSettings;
         }
     }
 }

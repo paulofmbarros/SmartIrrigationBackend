@@ -18,12 +18,17 @@ using PositionStackAPI.ReverseGeocoding;
 using SmartIrrigation.Abstractions.Relational.Configuration;
 using SmartIrrigation.Abstractions.Relational.Reads;
 using SmartIrrigation.Application;
+using SmartIrrigation.Application.BasicCRUD;
+using SmartIrrigation.Application.BasicCRUD.Counties;
 using SmartIrrigation.Application.Geocoding;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
+using SmartIrrigation.Domain.BasicCRUD;
+using SmartIrrigation.Domain.BasicCRUD.Counties;
 using SmartIrrigation.Domain.Geocoding;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationConfigurationService;
+
 
 namespace SmartIrrigationBackend
 {
@@ -39,25 +44,34 @@ namespace SmartIrrigationBackend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
-
+            //APPLICATION
             services.AddScoped<IWeatherForecastApplication, WeatherForecastApplication>();
+            services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
+            services.AddScoped<IGeocodingApplication, GeocodingApplication>();
+            services.AddScoped<ICountiesApplication, CountiesApplication>();
+
+
+            //DOMAIN
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
-            services.AddScoped<IWeatherForecastData, WeatherForecastData>();
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
-            services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
-            services.AddScoped<IWeatherStationsData, WeatherStationsData>();
-            services.AddScoped<IPointData, PointData>();
-            services.AddScoped<IConfig, Config>();
-            services.AddScoped<IGeocodingApplication, GeocodingApplication>();
             services.AddScoped<IGeocodingDomain, GeocodingDomain>();
-            services.AddScoped<IForwardGeocodingService, ForwardGeocodingService>();
-            services.AddScoped<IReverseGeocoding, ReverseGeocoding>();
-            services.AddScoped<IConfigRelational, ConfigRelational>();
+            services.AddScoped<ICountiesDomain, CountiesDomain>();
+
+            //RELATIONAL
             services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
 
+
+            //CONFIG
+            services.AddScoped<IConfigRelational, ConfigRelational>();
+            services.AddScoped<IConfig, Config>();
+
+            //SHARED
+            services.AddScoped<IWeatherForecastData, WeatherForecastData>();
+            services.AddScoped<IWeatherStationsData, WeatherStationsData>();
+            services.AddScoped<IPointData, PointData>();
+            services.AddScoped<IForwardGeocodingService, ForwardGeocodingService>();
+            services.AddScoped<IReverseGeocoding, ReverseGeocoding>();
 
 
             services.AddControllers();

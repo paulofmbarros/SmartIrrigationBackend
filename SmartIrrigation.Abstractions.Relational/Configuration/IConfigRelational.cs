@@ -6,6 +6,6 @@ namespace SmartIrrigation.Abstractions.Relational.Configuration
 {
     public interface IConfigRelational
     {
-        string GetConnectionString();
+        string GetConnectionString(string name);
     }
 }

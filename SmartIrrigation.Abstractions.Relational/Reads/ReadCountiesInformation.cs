@@ -14,18 +14,20 @@ namespace SmartIrrigation.Abstractions.Relational.Reads
         private readonly IConfigRelational _config;
         private readonly string _connectionString;
 
-        public ReadCountiesInformation(IConfigRelational config, string connectionString)
+        public ReadCountiesInformation(IConfigRelational config)
         {
             _config = config;
-            _connectionString = _config.GetConnectionString();
+            _connectionString = _config.GetConnectionString("ConnectionStrings:mydb1");
         }
         public County RetrieveCountyByCountyName(string countyName)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
                 string readSp = "SELECT TOP (1) [CountyId],[Name], [Id_District] FROM [dbo].[Counties]";
-                return db.QueryFirstOrDefault<County>(readSp);
+                var x = db.QueryFirstOrDefault<County>(readSp);
+                return x;
             }
+
         }
     }
 }
