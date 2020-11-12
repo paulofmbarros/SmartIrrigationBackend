@@ -33,7 +33,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Configuration", "Configurat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartIrrigationConfigurationService", "SmartIrrigationConfigurationService\SmartIrrigationConfigurationService.csproj", "{255FF066-E616-4070-9781-15713F133E61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeatherAPI", "OpenWeatherAPI\OpenWeatherAPI.csproj", "{E5B606F3-346E-450C-A44A-EBD47163FB98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenWeatherAPI", "OpenWeatherAPI\OpenWeatherAPI.csproj", "{E5B606F3-346E-450C-A44A-EBD47163FB98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

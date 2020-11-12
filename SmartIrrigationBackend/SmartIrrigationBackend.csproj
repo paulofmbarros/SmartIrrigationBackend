@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartIrrigation.Abstractions.Relational\SmartIrrigation.Abstractions.Relational.csproj" />
     <ProjectReference Include="..\SmartIrrigation.Application\SmartIrrigation.Application.csproj" />
     <ProjectReference Include="..\SmartIrrigation.Domain\SmartIrrigation.Domain.csproj" />
     <ProjectReference Include="..\SmartIrrigationModels\SmartIrrigationModels.csproj" />

@@ -15,6 +15,8 @@ using Microsoft.Extensions.Logging;
 using OpenWeatherAPI;
 using PositionStackAPI.ForwardGeocoding;
 using PositionStackAPI.ReverseGeocoding;
+using SmartIrrigation.Abstractions.Relational.Configuration;
+using SmartIrrigation.Abstractions.Relational.Reads;
 using SmartIrrigation.Application;
 using SmartIrrigation.Application.Geocoding;
 using SmartIrrigation.Application.WeatherStation;
@@ -53,6 +55,8 @@ namespace SmartIrrigationBackend
             services.AddScoped<IGeocodingDomain, GeocodingDomain>();
             services.AddScoped<IForwardGeocodingService, ForwardGeocodingService>();
             services.AddScoped<IReverseGeocoding, ReverseGeocoding>();
+            services.AddScoped<IConfigRelational, ConfigRelational>();
+            services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
 
 
 
