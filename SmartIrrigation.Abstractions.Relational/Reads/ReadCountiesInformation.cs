@@ -23,11 +23,12 @@ namespace SmartIrrigation.Abstractions.Relational.Reads
         {
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
-                string readSp = "SELECT TOP (1) [CountyId],[Name], [Id_District] FROM [dbo].[Counties]";
+                string readSp = $"SELECT [CountyId],[Name], [Id_District] FROM [dbo].[Counties] where [Name]= '{countyName}'";
                 var x = db.QueryFirstOrDefault<County>(readSp);
                 return x;
             }
 
         }
+        
     }
 }

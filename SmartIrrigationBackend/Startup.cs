@@ -20,11 +20,13 @@ using SmartIrrigation.Abstractions.Relational.Reads;
 using SmartIrrigation.Application;
 using SmartIrrigation.Application.BasicCRUD;
 using SmartIrrigation.Application.BasicCRUD.Counties;
+using SmartIrrigation.Application.BasicCRUD.Districts;
 using SmartIrrigation.Application.Geocoding;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
 using SmartIrrigation.Domain.BasicCRUD;
 using SmartIrrigation.Domain.BasicCRUD.Counties;
+using SmartIrrigation.Domain.BasicCRUD.District;
 using SmartIrrigation.Domain.Geocoding;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationConfigurationService;
@@ -49,6 +51,7 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationApplication, WeatherStationApplication>();
             services.AddScoped<IGeocodingApplication, GeocodingApplication>();
             services.AddScoped<ICountiesApplication, CountiesApplication>();
+            services.AddScoped<IDistrictApplication, DistrictApplication>();
 
 
             //DOMAIN
@@ -57,9 +60,11 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IGeocodingDomain, GeocodingDomain>();
             services.AddScoped<ICountiesDomain, CountiesDomain>();
+            services.AddScoped<IDistrictDomain, DistrictDomain>();
 
             //RELATIONAL
             services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
+            services.AddScoped<IReadDistrictInformation, ReadDistrictInformation>();
 
 
             //CONFIG
