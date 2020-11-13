@@ -123,8 +123,16 @@ namespace SmartIrrigationBackend.Controllers
         [HttpGet("GetHistoryEvaporationByCountyName")]
         public IActionResult GetHistoryEvaporationByCountyName(string countyName)
         {
-            var data = _weatherStationApplication.GetHistoryEvaporationByCountyName(countyName);
-            return Ok(data);
+            int rowsAffeted = _weatherStationApplication.GetHistoryEvaporationByCountyName(countyName);
+            if (rowsAffeted!=0)
+            {
+                return Ok($"{rowsAffeted} rows were affected");
+            }
+            else
+            {
+                return NoContent();
+            }
+           
         }
     }
 }

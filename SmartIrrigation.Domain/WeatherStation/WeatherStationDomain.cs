@@ -44,8 +44,8 @@ namespace SmartIrrigation.Domain.WeatherStation
        public string[] GetHistoryEvaporationByCountyName(County county, string districtName) =>
            _ipmaDataRequisitions.GetHistoryEvaporationByCountyName(county, districtName);
 
-       public void SaveEvaporationHistoryInDatabase(string[] lines) =>
-           _evaporationRepository.InsertEvaporationData(lines);
+       public int SaveEvaporationHistoryInDatabase(string[] lines, int Id_District) =>
+           _evaporationRepository.InsertEvaporationData(lines, Id_District);
 
 
    }

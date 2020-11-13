@@ -22,6 +22,6 @@ namespace SmartIrrigation.Domain.WeatherStation
         RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt);
         string[] GetHistoryEvaporationByCountyName(County county, string districtName);
 
-        void SaveEvaporationHistoryInDatabase(string[] lines);
+        int SaveEvaporationHistoryInDatabase(string[] lines, int Id_District);
     }
 }

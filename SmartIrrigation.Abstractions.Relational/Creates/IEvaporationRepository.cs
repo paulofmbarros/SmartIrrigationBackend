@@ -6,6 +6,6 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 {
     public interface IEvaporationRepository
     {
-        void InsertEvaporationData(string[] lines);
+        int InsertEvaporationData(string[] lines, int Id_District);
     }
 }

@@ -39,13 +39,13 @@ namespace SmartIrrigation.Application.WeatherStation
 
         public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams) => _weatherStationDomain.DailyDataOfAPoint(dailyDataOfAPointParams);
         public RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt)=> _weatherStationDomain.ClimateNormalsOfAPoint(lat, lon, alt);
-        public object GetHistoryEvaporationByCountyName(string countyName)
+        public int GetHistoryEvaporationByCountyName(string countyName)
         {
             County county = _countiesDomain.GetCountyByCountyName(countyName);
-            string districtName = _districtDomain.RetrieveDistrictByCountyName(countyName).DistrictName;
-            string[] evaporationhistory = _weatherStationDomain.GetHistoryEvaporationByCountyName(county, districtName);
-            _weatherStationDomain.SaveEvaporationHistoryInDatabase(evaporationhistory);
-            return evaporationhistory;
+            District district = _districtDomain.RetrieveDistrictByCountyName(countyName);
+            string[] evaporationhistory = _weatherStationDomain.GetHistoryEvaporationByCountyName(county, district.DistrictName);
+            int affectedrows=_weatherStationDomain.SaveEvaporationHistoryInDatabase(evaporationhistory, district.Id_District);
+            return affectedrows;
         }
     }
 }
