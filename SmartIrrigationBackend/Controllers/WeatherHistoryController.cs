@@ -124,15 +124,18 @@ namespace SmartIrrigationBackend.Controllers
         public IActionResult GetHistoryEvaporationByCountyName(string countyName)
         {
             int rowsAffeted = _weatherStationApplication.GetHistoryEvaporationByCountyName(countyName);
-            if (rowsAffeted!=0)
+            if (rowsAffeted==0 || rowsAffeted != -1)
             {
-                return Ok($"{rowsAffeted} rows were affected");
+                return NoContent();
+
             }
             else
             {
-                return NoContent();
+               return Ok($"{rowsAffeted} rows were affected");
+
+
             }
-           
+
         }
     }
 }

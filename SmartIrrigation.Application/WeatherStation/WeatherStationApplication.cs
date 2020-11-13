@@ -42,10 +42,22 @@ namespace SmartIrrigation.Application.WeatherStation
         public int GetHistoryEvaporationByCountyName(string countyName)
         {
             County county = _countiesDomain.GetCountyByCountyName(countyName);
-            District district = _districtDomain.RetrieveDistrictByCountyName(countyName);
-            string[] evaporationhistory = _weatherStationDomain.GetHistoryEvaporationByCountyName(county, district.DistrictName);
-            int affectedrows=_weatherStationDomain.SaveEvaporationHistoryInDatabase(evaporationhistory, district.Id_District);
-            return affectedrows;
+            
+            if (county != null)
+            {
+                District district = _districtDomain.RetrieveDistrictByCountyName(countyName);
+                string[] evaporationhistory = _weatherStationDomain.GetHistoryEvaporationByCountyName(county, district.DistrictName);
+                if (evaporationhistory.Length == 0)
+                {
+                    return -1;
+                }
+                int affectedrows = _weatherStationDomain.SaveEvaporationHistoryInDatabase(evaporationhistory, district.Id_District);
+                return affectedrows;
+
+
+            }
+
+            return 0;
         }
     }
 }
