@@ -120,11 +120,11 @@ namespace SmartIrrigationBackend.Controllers
         /// </summary>
         /// <param name="findStationParams"></param>
         /// <returns></returns>
-        [HttpGet("GetHistoryEvaporationByCountyName")]
-        public IActionResult GetHistoryEvaporationByCountyName(string countyName)
+        [HttpPost("RetrieveHistoryEvaporationByCountyName")]
+        public IActionResult RetrieveHistoryEvaporationByCountyName(string countyName)
         {
             int rowsAffeted = _weatherStationApplication.GetHistoryEvaporationByCountyName(countyName);
-            if (rowsAffeted==0 || rowsAffeted != -1)
+            if (rowsAffeted==0 || rowsAffeted == -1)
             {
                 return NoContent();
 

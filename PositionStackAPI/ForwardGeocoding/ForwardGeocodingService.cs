@@ -28,7 +28,7 @@ namespace PositionStackAPI.ForwardGeocoding
             request.AddHeader("User-Agent", "runscope/0.1");
             request.Method = Method.GET;
             request.AddParameter("access_key", _config.GetConfiguration("PositionStackAPI:APIKEY"));
-            request.AddParameter("query", $"{queryparams.Street} {queryparams.County},{queryparams.District}");
+            request.AddParameter("query", $"{queryparams.Street}, {queryparams.County},{queryparams.District}");
 
             var response = client.Execute(request);
             return JsonConvert.DeserializeObject<RootGeocodingDataModel<GeocodingAddressResponseModel>>(response.Content);
