@@ -9,5 +9,6 @@ namespace SmartIrrigation.Domain.BasicCRUD.Location
      public interface ILocationDomain
     {
         int InsertLocationData(RootGeocodingDataModel<GeocodingAddressResponseModel> data, int Id_District, int Id_County);
+        SmartIrrigationModels.Models.DTOS.Location RetrieveLocation(string latitude, string longitude);
     }
 }

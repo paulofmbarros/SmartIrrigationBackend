@@ -44,6 +44,11 @@ namespace SmartIrrigation.Application.BasicCRUD.Location
                 int affectedRows = _locationDomain.InsertLocationData(data, district.Id_District, county.CountyId);
             }
         }
+
+        public SmartIrrigationModels.Models.DTOS.Location RetrieveLocation(string latitude, string longitude) =>
+            _locationDomain.RetrieveLocation(latitude, longitude);
+
+
     }
 }
 

@@ -8,5 +8,6 @@ namespace SmartIrrigation.Application.BasicCRUD.Location
     public interface ILocationApplication
     {
         void SaveNewLocation(GeocodingAddressModelQueryParams parameters);
+        SmartIrrigationModels.Models.DTOS.Location RetrieveLocation(string latitude, string longitude);
     }
 }

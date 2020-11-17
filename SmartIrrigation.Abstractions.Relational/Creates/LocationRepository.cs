@@ -6,6 +6,7 @@ using System.Text;
 using Dapper;
 using SmartIrrigation.Abstractions.Relational.Configuration;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigation.Abstractions.Relational.Creates
@@ -38,6 +39,19 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             }
 
             return affectedRows;
+        }
+
+        public Location RetrieveLocationData(string latitude, string longitude)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                
+                    string sql = "Select * from Location where Latitude=@Latitude and Longitude=@Longitude";
+                    return db.QueryFirstOrDefault<Location>(sql, new { Latitude = latitude, Longitude = longitude});
+
+                
+
+            }
         }
     }
 }

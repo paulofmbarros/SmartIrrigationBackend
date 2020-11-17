@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.BasicCRUD.Location;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigationBackend.Controllers
@@ -21,10 +22,23 @@ namespace SmartIrrigationBackend.Controllers
         }
 
         [HttpPost("SaveNewLocation")]
-        public IActionResult SaveNewLocation(GeocodingAddressModelQueryParams parameters )
+        public IActionResult SaveNewLocation([FromBody] GeocodingAddressModelQueryParams parameters )
         {
             _locationApplication.SaveNewLocation(parameters);
             return Ok();
+        }
+
+        [HttpGet("RetrieveLocation")]
+        public IActionResult RetrieveLocation([FromQuery] string latitude, string longitude)
+        {
+            Location location =_locationApplication.RetrieveLocation(latitude,longitude);
+            if (location != null)
+            {
+                return Ok(location);
+            }
+
+            return NotFound("Location Not Found in the database");
+
         }
     }
 }
