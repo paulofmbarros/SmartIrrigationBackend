@@ -7,6 +7,6 @@ namespace SmartIrrigation.Application.Node
 {
     public interface INodeApplication
     {
-        object AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor,  bool isSprinkler, bool isEnable);
+        void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor,  bool isSprinkler, bool isEnable);
     }
 }

@@ -30,34 +30,6 @@ namespace SmartIrrigation.Application.WeatherStation
         public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams) =>
             _weatherStationDomain.FindNearByStation(findStationParams);
 
-        public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfStation(HourlyDataOfStationQueryParams hourlyDataOfStationParams) => _weatherStationDomain.GetHourlyDataOfStation(hourlyDataOfStationParams);
-        public RootWeatherDataModel<DailyDataModel> GetDailyDataOfStation(DailyDataOfStationQueryParams dailyDataOfStationParams)=> _weatherStationDomain.GetDailyDataOfStation(dailyDataOfStationParams);
-        public RootWeatherDataModel<ClimateNormalsDataModel> GetClimateNormalsOfAStation(string stationId)=> _weatherStationDomain.GetClimateNormalsOfAStation(stationId);
-
-        public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfPoint(
-            HourlyDataOfAPointQueryParams hourlyDataOfAPointParams) => _weatherStationDomain.GetHourlyDataOfPoint(hourlyDataOfAPointParams);
-
-        public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams) => _weatherStationDomain.DailyDataOfAPoint(dailyDataOfAPointParams);
-        public RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt)=> _weatherStationDomain.ClimateNormalsOfAPoint(lat, lon, alt);
-        public int GetHistoryEvaporationByCountyName(string countyName)
-        {
-            County county = _countiesDomain.GetCountyByCountyName(countyName);
-            
-            if (county != null)
-            {
-                District district = _districtDomain.RetrieveDistrictByCountyName(countyName);
-                string[] evaporationhistory = _weatherStationDomain.GetHistoryEvaporationByCountyName(county, district.DistrictName);
-                if (evaporationhistory.Length == 0)
-                {
-                    return -1;
-                }
-                int affectedrows = _weatherStationDomain.SaveEvaporationHistoryInDatabase(evaporationhistory, district.Id_District);
-                return affectedrows;
-
-
-            }
-
-            return 0;
-        }
+        
     }
 }

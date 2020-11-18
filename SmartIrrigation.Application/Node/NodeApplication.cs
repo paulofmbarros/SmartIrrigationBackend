@@ -37,7 +37,7 @@ namespace SmartIrrigation.Application.Node
             _weatherStationDomain = weatherStationDomain;
         }
 
-        public object AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
+        public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
              bool isEnable)
         {
             RootGeocodingDataModel<GeocodingAddressResponseModel> coords =_geocodingDomain.GetCoordsFromAddress(address);
@@ -56,8 +56,10 @@ namespace SmartIrrigation.Application.Node
             FindNearbyStationModel paraModel=new FindNearbyStationModel(float.Parse(location.Latitude,CultureInfo.InvariantCulture.NumberFormat), float.Parse(location.Longitude, CultureInfo.InvariantCulture.NumberFormat),null,null);
             RootWeatherStationModel<NearbyWeatherStationModel> nearStation = _weatherStationDomain.FindNearByStation(paraModel);
 
-            //add node;
-            _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location, nearStation.Data.FirstOrDefault().Id);
+            //Todo: Retrieve Station information from database or add it if not exists
+
+            //TODO: correct this, the nearby statiton should becoome from database and not from api
+            _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location, int.Parse(nearStation.Data.FirstOrDefault().Id));
 
         }
     }

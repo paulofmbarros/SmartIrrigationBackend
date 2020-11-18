@@ -25,6 +25,8 @@ using SmartIrrigation.Application.BasicCRUD.Counties;
 using SmartIrrigation.Application.BasicCRUD.Districts;
 using SmartIrrigation.Application.BasicCRUD.Location;
 using SmartIrrigation.Application.Geocoding;
+using SmartIrrigation.Application.Node;
+using SmartIrrigation.Application.WeatherHistory;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
 using SmartIrrigation.Domain.BasicCRUD;
@@ -32,6 +34,8 @@ using SmartIrrigation.Domain.BasicCRUD.Counties;
 using SmartIrrigation.Domain.BasicCRUD.District;
 using SmartIrrigation.Domain.BasicCRUD.Location;
 using SmartIrrigation.Domain.Geocoding;
+using SmartIrrigation.Domain.Node;
+using SmartIrrigation.Domain.WeatherHistory;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationConfigurationService;
 
@@ -57,6 +61,8 @@ namespace SmartIrrigationBackend
             services.AddScoped<ICountiesApplication, CountiesApplication>();
             services.AddScoped<IDistrictApplication, DistrictApplication>();
             services.AddScoped<ILocationApplication, LocationApplication>();
+            services.AddScoped<INodeApplication, NodeApplication>();
+            services.AddScoped<IWeatherHistoryApplication, WeatherHistoryApplication>();
 
 
             //DOMAIN
@@ -67,12 +73,15 @@ namespace SmartIrrigationBackend
             services.AddScoped<ICountiesDomain, CountiesDomain>();
             services.AddScoped<IDistrictDomain, DistrictDomain>();
             services.AddScoped<ILocationDomain, LocationDomain>();
+            services.AddScoped<INodeDomain, NodeDomain>();
+            services.AddScoped<IWeatherHistoryDomain, WeatherHistoryDomain>();
 
             //RELATIONAL
             services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
             services.AddScoped<IReadDistrictInformation, ReadDistrictInformation>();
             services.AddScoped<IEvaporationRepository, EvaporationRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<INodeRepository, NodeRepository>();
 
 
             //CONFIG
