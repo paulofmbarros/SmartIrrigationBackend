@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmartIrrigation.Domain;
+﻿using SmartIrrigation.Domain;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.WeatherForecast;
 
-namespace SmartIrrigation.Application
+namespace SmartIrrigation.Application.WeatherForecast
 {
     public class WeatherForecastApplication : IWeatherForecastApplication
     {

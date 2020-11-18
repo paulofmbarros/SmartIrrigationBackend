@@ -26,6 +26,7 @@ using SmartIrrigation.Application.BasicCRUD.Districts;
 using SmartIrrigation.Application.BasicCRUD.Location;
 using SmartIrrigation.Application.Geocoding;
 using SmartIrrigation.Application.Node;
+using SmartIrrigation.Application.WeatherForecast;
 using SmartIrrigation.Application.WeatherHistory;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;

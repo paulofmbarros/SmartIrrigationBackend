@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmartIrrigation.Application.BasicCRUD.Counties;
-using SmartIrrigation.Domain.BasicCRUD.Counties;
+﻿using SmartIrrigation.Domain.BasicCRUD.Counties;
 using SmartIrrigationModels.Models.DTOS;
 
-namespace SmartIrrigation.Application.BasicCRUD
+namespace SmartIrrigation.Application.BasicCRUD.Counties
 {
    public class CountiesApplication : ICountiesApplication
    {

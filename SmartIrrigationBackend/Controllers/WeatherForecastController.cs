@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmartIrrigation.Application;
+using SmartIrrigation.Application.WeatherForecast;
 
 namespace SmartIrrigationBackend.Controllers
 {
