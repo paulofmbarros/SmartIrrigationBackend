@@ -14,6 +14,7 @@ namespace SmartIrrigationBackend.Controllers
         {
             _countiesApplication = countiesApplication;
         }
+
         [HttpGet("GetCountyByCountyName")]
         public IActionResult GetCountyByCountyName([FromQuery] string countyName)
         {

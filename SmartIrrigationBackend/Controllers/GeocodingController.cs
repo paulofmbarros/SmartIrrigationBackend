@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.Geocoding;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.Geocoding;
@@ -15,10 +10,12 @@ namespace SmartIrrigationBackend.Controllers
     public class GeocodingController : ControllerBase
     {
         private readonly IGeocodingApplication _geocodingApplication;
+
         public GeocodingController(IGeocodingApplication geocodingApplication)
         {
             _geocodingApplication = geocodingApplication;
         }
+
         [HttpGet("Geocoding")]
         public IActionResult GetCoordsFromAddress([FromQuery] GeocodingAddressModelQueryParams queryparams)
         {
@@ -29,7 +26,7 @@ namespace SmartIrrigationBackend.Controllers
         [HttpGet("ReverseGeocoding")]
         public IActionResult GetAdressFromCoords(string latitude, string longitude)
         {
-            RootGeocodingDataModel<GeocodingAddressResponseModel> data = _geocodingApplication.GetAddressFromCoords(latitude,longitude);
+            RootGeocodingDataModel<GeocodingAddressResponseModel> data = _geocodingApplication.GetAddressFromCoords(latitude, longitude);
 
             return Ok(data);
         }

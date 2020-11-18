@@ -14,6 +14,7 @@ namespace SmartIrrigationBackend.Controllers
         {
             _districtApplication = countiesApplication;
         }
+
         [HttpGet("GetDistrictByDistrictName")]
         public IActionResult GetDistrictByDistrictName([FromQuery] string districtName)
         {
@@ -27,8 +28,5 @@ namespace SmartIrrigationBackend.Controllers
             District district = _districtApplication.RetrieveDistrictByCountyName(countyName);
             return Ok(district);
         }
-
-
-        
     }
 }

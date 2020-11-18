@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.WeatherHistory;
 using SmartIrrigation.Application.WeatherStation;
-using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.NearByStation;
 using SmartIrrigationModels.Models.WeatherData;
@@ -27,6 +20,7 @@ namespace SmartIrrigationBackend.Controllers
             _weatherStationApplication = weatherStationApplication;
             _weatherHistoryApplication = weatherHistoryApplication;
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -62,6 +56,7 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<HourlyDataModel> data = _weatherHistoryApplication.GetHourlyDataOfStation(hourlyDataOfStationParams);
             return Ok(data);
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -73,6 +68,7 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<HourlyDataModel> data = _weatherHistoryApplication.GetHourlyDataOfPoint(hourlyDataOfAPointParams);
             return Ok(data);
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -84,6 +80,7 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<DailyDataModel> data = _weatherHistoryApplication.GetDailyDataOfStation(dailyDataOfStationParams);
             return Ok(data);
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -95,6 +92,7 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<DailyDataModel> data = _weatherHistoryApplication.DailyDataOfAPoint(dailyDataOfAPointParams);
             return Ok(data);
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -106,6 +104,7 @@ namespace SmartIrrigationBackend.Controllers
             RootWeatherDataModel<ClimateNormalsDataModel> data = _weatherHistoryApplication.GetClimateNormalsOfAStation(stationId);
             return Ok(data);
         }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>
@@ -114,7 +113,7 @@ namespace SmartIrrigationBackend.Controllers
         [HttpGet("ClimateNormalsOfAPoint")]
         public IActionResult ClimateNormalsOfAPoint(float lat, float lon, int alt)
         {
-            RootWeatherDataModel<ClimateNormalsOfAPointDataModel> data = _weatherHistoryApplication.ClimateNormalsOfAPoint(lat,lon,alt);
+            RootWeatherDataModel<ClimateNormalsOfAPointDataModel> data = _weatherHistoryApplication.ClimateNormalsOfAPoint(lat, lon, alt);
             return Ok(data);
         }
 
@@ -127,18 +126,14 @@ namespace SmartIrrigationBackend.Controllers
         public IActionResult RetrieveHistoryEvaporationByCountyName(string countyName)
         {
             int rowsAffeted = _weatherHistoryApplication.GetHistoryEvaporationByCountyName(countyName);
-            if (rowsAffeted==0 || rowsAffeted == -1)
+            if (rowsAffeted == 0 || rowsAffeted == -1)
             {
                 return NoContent();
-
             }
             else
             {
-               return Ok($"{rowsAffeted} rows were affected");
-
-
+                return Ok($"{rowsAffeted} rows were affected");
             }
-
         }
     }
 }

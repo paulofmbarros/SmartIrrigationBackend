@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SmartIrrigation.Application;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.WeatherForecast;
 
 namespace SmartIrrigationBackend.Controllers
 {
-
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
@@ -27,11 +20,10 @@ namespace SmartIrrigationBackend.Controllers
         /// <param name="findStationParams"></param>
         /// <returns></returns>
         [HttpGet("GetWeatherForecast")]
-        public IActionResult GetWeatherForecast([FromQuery]string latitude, string longitude)
+        public IActionResult GetWeatherForecast([FromQuery] string latitude, string longitude)
         {
-            var data =_weatherForecastApplication.GetWeatherForecast(latitude, longitude);
+            var data = _weatherForecastApplication.GetWeatherForecast(latitude, longitude);
             return Ok(data);
         }
-
     }
 }
