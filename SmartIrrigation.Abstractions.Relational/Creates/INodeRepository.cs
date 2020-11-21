@@ -8,7 +8,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
     public interface INodeRepository
     {
         void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable,
-            int locationIdLocation, int IdNearStation);
+            int? locationIdLocation, int IdNearStation);
 
     }
 }

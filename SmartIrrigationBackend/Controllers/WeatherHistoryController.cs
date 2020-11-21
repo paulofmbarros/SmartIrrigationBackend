@@ -12,39 +12,15 @@ namespace SmartIrrigationBackend.Controllers
     [ApiController]
     public class WeatherHistoryController : ControllerBase
     {
-        private readonly IWeatherStationApplication _weatherStationApplication;
         private readonly IWeatherHistoryApplication _weatherHistoryApplication;
 
-        public WeatherHistoryController(IWeatherStationApplication weatherStationApplication, IWeatherHistoryApplication weatherHistoryApplication)
+        public WeatherHistoryController(IWeatherHistoryApplication weatherHistoryApplication)
         {
-            _weatherStationApplication = weatherStationApplication;
+           
             _weatherHistoryApplication = weatherHistoryApplication;
         }
 
-        /// <summary>
-        /// Add a new Weather station to database
-        /// </summary>
-        /// <param name="findStationParams"></param>
-        /// <returns></returns>
-        [HttpPost("FindWeatherStation")]
-        public IActionResult FindWeatherStation([FromBody] FindStationModel findStationParams)
-        {
-            RootWeatherStationModel<WeatherStationWithParamsModel> data = _weatherStationApplication.FindWeatherStation(findStationParams.Query, findStationParams.Limit);
-            return Ok(data);
-        }
-
-        /// <summary>
-        /// Add a new Weather station to database
-        /// </summary>
-        /// <param name="findStationParams"></param>
-        /// <returns></returns>
-        [HttpGet("FindNearByStation")]
-        public IActionResult FindNearByStation([FromQuery] FindNearbyStationModel findStationParams)
-        {
-            RootWeatherStationModel<NearbyWeatherStationModel> data = _weatherStationApplication.FindNearByStation(findStationParams);
-            return Ok(data);
-        }
-
+        
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>

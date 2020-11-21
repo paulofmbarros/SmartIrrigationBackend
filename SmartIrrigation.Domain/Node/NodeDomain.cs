@@ -16,7 +16,7 @@ namespace SmartIrrigation.Domain.Node
         }
 
         public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,
-             bool isEnable, int locationIdLocation, int IdNearStation) =>
+             bool isEnable, int? locationIdLocation, int IdNearStation) =>
             _nodeRepository.AddNewNode(address, isRealSensor, isSprinkler, isEnable, locationIdLocation, IdNearStation);
 
     }

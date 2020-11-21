@@ -41,6 +41,23 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             return affectedRows;
         }
 
+        public int InsertLocationData(Location data, int Id_District, int Id_County)
+        {
+            int affectedRows = 0;
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+               
+                    string sql = "IF NOT EXISTS (SELECT Latitude,Longitude FROM Location WHERE Latitude = @Latitude AND Longitude=@Longitude) INSERT INTO Location (Latitude,Longitude,Altitude,Description,Id_District,Id_Countie) Values (@Latitude,@Longitude,@Altitude,@Description,@Id_District,@Id_County)";
+                    affectedRows += db.Execute(sql, new { Latitude = data.Latitude, Longitude = data.Longitude, Altitude = 0, Description = data.Description, Id_District = Id_District, Id_County = Id_County });
+
+               
+
+            }
+
+            return affectedRows;
+        }
+
         public Location RetrieveLocationData(string latitude, string longitude)
         {
             using (IDbConnection db = new SqlConnection(_connectionString))

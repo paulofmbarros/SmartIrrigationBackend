@@ -14,6 +14,8 @@ namespace SmartIrrigation.Domain.WeatherStation
         RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit);
 
         RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams);
-       
+
+        void AddWeatherStationToDatabase(Station station);
+        WeatherStationWithParamsModel FindNearByStationFromLatLong(FindNearbyStationModel findNearbyStationModel);
     }
 }

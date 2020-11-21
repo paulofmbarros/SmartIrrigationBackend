@@ -19,7 +19,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             _config = config;
             _connectionString = _config.GetConnectionString("ConnectionStrings:mydb1");
         }
-        public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,  bool isEnable, int locationIdLocation, int IdNearStation)
+        public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,  bool isEnable, int? locationIdLocation, int IdNearStation)
         {
 
             using (IDbConnection db = new SqlConnection(_connectionString))

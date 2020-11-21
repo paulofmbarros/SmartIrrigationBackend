@@ -27,7 +27,7 @@ namespace SmartIrrigation.Application.Node
         private readonly ICountiesDomain _countyDomain;
         private readonly IWeatherStationDomain _weatherStationDomain;
 
-        public NodeApplication(GeocodingDomain geocodingDomain, LocationDomain locationDomain, NodeDomain nodeDomain, DistrictDomain districtDomain, CountiesDomain countyDomain, IWeatherStationDomain weatherStationDomain)
+        public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain, IDistrictDomain districtDomain, ICountiesDomain countyDomain, IWeatherStationDomain weatherStationDomain)
         {
             _geocodingDomain = geocodingDomain;
             _locationDomain = locationDomain;

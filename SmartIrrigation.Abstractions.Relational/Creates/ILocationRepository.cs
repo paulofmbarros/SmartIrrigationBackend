@@ -10,6 +10,8 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
     public interface ILocationRepository
     {
         int InsertLocationData(RootGeocodingDataModel<GeocodingAddressResponseModel> data, int Id_District, int Id_County);
+        int InsertLocationData(Location data, int Id_District, int Id_County);
         Location RetrieveLocationData(string latitude, string longitude);
+        
     }
 }

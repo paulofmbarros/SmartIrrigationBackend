@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.DTOS;
+using SmartIrrigationModels.Models.Geocoding;
 using SmartIrrigationModels.Models.NearByStation;
 using SmartIrrigationModels.Models.WeatherStation;
 
@@ -29,8 +31,8 @@ namespace SmartIrrigationBackend.Controllers
         /// </summary>
         /// <param name="findStationParams"></param>
         /// <returns></returns>
-        [HttpPost("AddWeatherStationToDatabase")]
-        public IActionResult AddWeatherStationToDatabase([FromBody] FindStationModel findStationParams)
+        [HttpGet("FindWeatherStation")]
+        public IActionResult FindWeatherStation([FromQuery] FindStationModel findStationParams)
         {
             RootWeatherStationModel<WeatherStationWithParamsModel> data = _weatherStationApplication.FindWeatherStation(findStationParams.Query, findStationParams.Limit);
             return Ok(data);
@@ -42,11 +44,23 @@ namespace SmartIrrigationBackend.Controllers
         /// </summary>
         /// <param name="findStationParams"></param>
         /// <returns></returns>
-        [HttpPost("AddWeatherStationToDatabase")]
-        public IActionResult AddWeatherStationToDatabase([FromQuery] FindNearbyStationModel findStationParams)
+        [HttpGet("FindNearByStation")]
+        public IActionResult FindNearByStation([FromQuery] FindNearbyStationModel findStationParams)
         {
             RootWeatherStationModel<NearbyWeatherStationModel> data = _weatherStationApplication.FindNearByStation(findStationParams);
             return Ok(data);
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("AddWeatherStationToDatabase")]
+        public IActionResult AddWeatherStationToDatabase([FromBody] GeocodingAddressModelQueryParams parameters )
+        {
+            _weatherStationApplication.AddWeatherStationToDatabase(parameters);
+            return Ok();
         }
     }
 }

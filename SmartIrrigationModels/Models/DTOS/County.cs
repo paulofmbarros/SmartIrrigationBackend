@@ -6,7 +6,7 @@ namespace SmartIrrigationModels.Models.DTOS
 {
     public class County
     {
-        public int CountyId { get; set; }
+        public short CountyId { get; set; }
         public string Name { get; set; }
 
         public int Id_District { get; set; }

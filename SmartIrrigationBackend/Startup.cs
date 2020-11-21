@@ -69,7 +69,6 @@ namespace SmartIrrigationBackend
             //DOMAIN
             services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IWeatherForecastDomain, WeatherForecastDomain>();
-            services.AddScoped<IWeatherStationDomain, WeatherStationDomain>();
             services.AddScoped<IGeocodingDomain, GeocodingDomain>();
             services.AddScoped<ICountiesDomain, CountiesDomain>();
             services.AddScoped<IDistrictDomain, DistrictDomain>();
@@ -83,10 +82,13 @@ namespace SmartIrrigationBackend
             services.AddScoped<IEvaporationRepository, EvaporationRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<INodeRepository, NodeRepository>();
+            services.AddScoped<IWeatherStationRepository, WeatherStationRepository>();
 
 
-            //CONFIG
-            services.AddScoped<IConfigRelational, ConfigRelational>();
+
+
+        //CONFIG
+        services.AddScoped<IConfigRelational, ConfigRelational>();
             services.AddScoped<IConfig, Config>();
 
             //SHARED

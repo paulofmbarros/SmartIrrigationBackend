@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
@@ -16,22 +17,28 @@ namespace SmartIrrigation.Domain.WeatherStation
    public class WeatherStationDomain :IWeatherStationDomain
    {
        private readonly IWeatherStationsData _weatherStationsData;
-       private readonly IPointData _pointData;
-       private readonly IIpmaDataRequisitions _ipmaDataRequisitions;
-       private readonly IEvaporationRepository _evaporationRepository;
+       private readonly IWeatherStationRepository _weatherStationRepository;
+     
 
-       public WeatherStationDomain(IWeatherStationsData weatherStationsData, IPointData pointData, IIpmaDataRequisitions ipmaDataRequisitions, IEvaporationRepository evaporationRepository)
+       public WeatherStationDomain(IWeatherStationsData weatherStationsData,  IWeatherStationRepository weatherStationRepository)
        {
            _weatherStationsData = weatherStationsData;
-           _pointData = pointData;
-           _ipmaDataRequisitions = ipmaDataRequisitions;
-           _evaporationRepository = evaporationRepository;
+           _weatherStationRepository = weatherStationRepository;
+           
        }
 
        public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
        public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams) => _weatherStationsData.FindNearByStation(findStationParams);
-       
 
+       public void AddWeatherStationToDatabase(Station station) =>
+           _weatherStationRepository.AddWeatherStationToDatabase(station);
 
+       public WeatherStationWithParamsModel FindNearByStationFromLatLong(FindNearbyStationModel parameters)
+       {
+           NearbyWeatherStationModel nearbyStation = FindNearByStation(parameters).Data.FirstOrDefault();
+           var weatherStationDetails = FindWeatherStation(nearbyStation.Name.En, 8).Data.FirstOrDefault();
+
+           return weatherStationDetails;
+       }
    }
 }

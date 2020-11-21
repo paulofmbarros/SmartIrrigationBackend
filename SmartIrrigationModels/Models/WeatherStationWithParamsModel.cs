@@ -17,5 +17,7 @@ namespace SmartIrrigationModels.Models
         public float? Longitude { get; set; }
         public int? Elevation { get; set; }
         public string? Timezone { get; set; }
+
+
     }
 }
