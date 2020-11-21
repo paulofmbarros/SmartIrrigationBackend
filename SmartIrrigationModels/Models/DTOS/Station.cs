@@ -16,10 +16,10 @@ namespace SmartIrrigationModels.Models.DTOS
         public string Iata { get; set; }
         public int? Elevation { get; set; }
         public string Timezone { get; set; }
-        public int Active { get; set; }
+        public bool Active { get; set; }
         public int? Id_Location { get; set; }
 
-        public Station(int? id, string name, string country, string regional, string national, int? wmo, string icao, string iata, int? elevation, string timezone, int active, int? idLocation)
+        public Station(int? id, string name, string country, string regional, string national, int? wmo, string icao, string iata, int? elevation, string timezone, bool active, int? idLocation)
         {
             Id = id;
             Name = name;

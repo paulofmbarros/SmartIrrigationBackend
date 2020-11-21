@@ -50,7 +50,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
                               ,[Elevation]
                               ,[Timezone]
                               ,[Active]
-                              ,[Id_Location]) Values (@Name,@Country,@Regional,@Nat,@Wmo,@Wmo,@Icao, @Iata, @Elevation, @Timezone, @Active)";
+                              ,[Id_Location]) Values (@Name,@Country,@Regional,@Nat,@Wmo,@Icao, @Iata, @Elevation, @Timezone, @Active, @Id_Location)";
                 affectedRows += db.Execute(sql, new { Name = station.Name, Country = station.Country, Regional = station.Regional, Nat = station.National, Wmo = station.Wmo, Icao=station.Icao ,Iata=station.Iata, Elevation=station.Elevation, Timezone=station.Timezone, Active=station.Active, Id_Location=station.Id_Location});
 
 
