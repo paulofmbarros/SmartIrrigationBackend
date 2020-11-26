@@ -8,5 +8,6 @@ namespace SmartIrrigation.Domain.Node
     public interface INodeDomain
     {
         void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable, int? locationIdLocation, int idNearStation);
+        SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street);
     }
 }

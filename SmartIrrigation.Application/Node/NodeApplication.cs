@@ -41,6 +41,9 @@ namespace SmartIrrigation.Application.Node
         public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
              bool isEnable)
         {
+
+
+            //TODO: REFACTOR THIS
             RootGeocodingDataModel<GeocodingAddressResponseModel> coords =_geocodingDomain.GetCoordsFromAddress(address);
             Location location = _locationDomain.RetrieveLocation(coords.Data.FirstOrDefault().Latitude,
                 coords.Data.FirstOrDefault().Longitude);
@@ -59,6 +62,11 @@ namespace SmartIrrigation.Application.Node
 
             
         }
+
+        public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>
+            _nodeDomain.GetNodeByStreet(street);
+
+
     }
 
     

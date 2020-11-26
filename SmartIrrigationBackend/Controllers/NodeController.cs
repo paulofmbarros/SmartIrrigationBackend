@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.Node;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigationBackend.Controllers
@@ -25,6 +26,18 @@ namespace SmartIrrigationBackend.Controllers
         {
             _nodeApplication.AddNewNode(address, isRealSensor, isSprinkler, isEnable);
             return Ok();
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("GetNodeByStreet")]
+        public IActionResult GetNodeByStreet(string street)
+        {
+           Node node = _nodeApplication.GetNodeByStreet(street);
+            return Ok(node);
         }
     }
 }

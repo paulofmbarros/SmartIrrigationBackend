@@ -6,7 +6,7 @@ namespace SmartIrrigationModels.Models.DTOS
 {
     public class Node
     {
-        public int Id { get; set; }
+        public int Id_Node { get; set; }
         public string Description { get; set; }
         public int Id_Location { get; set; }
         public int Id_NearStation { get; set; }
