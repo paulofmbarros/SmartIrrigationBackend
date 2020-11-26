@@ -36,11 +36,16 @@ namespace SmartIrrigation.Application.WeatherStation
 
         public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit) => _weatherStationDomain.FindWeatherStation(query, limit);
 
+        public Station RetrieveStationByStationName(string stationName) =>
+            _weatherStationDomain.RetrieveStationByStationName(stationName);
+
         public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams) =>
             _weatherStationDomain.FindNearByStation(findStationParams);
 
-        public void AddWeatherStationToDatabase(GeocodingAddressModelQueryParams parameters)
+        public Station AddWeatherStationToDatabase(GeocodingAddressModelQueryParams parameters)
         {
+            #region LocationOfParametersSent
+
             GeocodingAddressResponseModel locationquerycoords = _geocodingDomain.GetCoordsFromAddress(parameters).Data.FirstOrDefault();
             District district = _districtDomain.GetDistrictByDistrictName(parameters.District);
             County county = _countiesDomain.GetCountyByCountyName(parameters.County);
@@ -53,11 +58,19 @@ namespace SmartIrrigation.Application.WeatherStation
                 _weatherStationDomain.FindNearByStationFromLatLong(new FindNearbyStationModel(float.Parse(locationquerycoords.Latitude, CultureInfo.InvariantCulture.NumberFormat),
                     float.Parse(locationquerycoords.Longitude, CultureInfo.InvariantCulture.NumberFormat), 8, null));
 
+            #endregion
+
+            //Location id nearbyWeatherStation
             Location locationStation = new Location(nearbyWeatherStation.Latitude.ToString(), nearbyWeatherStation.Longitude.ToString(), nearbyWeatherStation.Elevation.ToString(), nearbyWeatherStation.Name.En, district.Id_District, county.CountyId);
+
+            //Insert if not exists
             _locationDomain.InsertLocationData(locationStation, district.Id_District, county.CountyId);
 
+            //Add Weather station if not exists
+            Station stationAdded=new Station(null, nearbyWeatherStation.Name.En, nearbyWeatherStation.Country, nearbyWeatherStation.Region, nearbyWeatherStation.National, nearbyWeatherStation.Wmo, nearbyWeatherStation.Icao, nearbyWeatherStation.Iata, nearbyWeatherStation.Elevation, nearbyWeatherStation.Timezone, nearbyWeatherStation.Active, _locationDomain.RetrieveLocation(nearbyWeatherStation.Latitude.ToString(), nearbyWeatherStation.Longitude.ToString()).Id_Location);
+            _weatherStationDomain.AddWeatherStationToDatabase(stationAdded);
 
-            _weatherStationDomain.AddWeatherStationToDatabase(new Station(null, nearbyWeatherStation.Name.En, nearbyWeatherStation.Country, nearbyWeatherStation.Region, nearbyWeatherStation.National, nearbyWeatherStation.Wmo, nearbyWeatherStation.Icao, nearbyWeatherStation.Iata, nearbyWeatherStation.Elevation, nearbyWeatherStation.Timezone, nearbyWeatherStation.Active, _locationDomain.RetrieveLocation(nearbyWeatherStation.Latitude.ToString(), nearbyWeatherStation.Longitude.ToString()).Id_Location));
+            return stationAdded;
         }
 
 

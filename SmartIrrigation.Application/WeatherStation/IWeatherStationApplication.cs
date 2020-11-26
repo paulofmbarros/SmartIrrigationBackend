@@ -16,6 +16,8 @@ namespace SmartIrrigation.Application.WeatherStation
 
         RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams);
 
-        void AddWeatherStationToDatabase(GeocodingAddressModelQueryParams station);
+        Station AddWeatherStationToDatabase(GeocodingAddressModelQueryParams station);
+
+        Station RetrieveStationByStationName(string stationName);
     }
 }

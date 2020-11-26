@@ -79,6 +79,7 @@ namespace SmartIrrigationBackend
             //RELATIONAL
             services.AddScoped<IReadCountiesInformation, ReadCountiesInformation>();
             services.AddScoped<IReadDistrictInformation, ReadDistrictInformation>();
+            services.AddScoped<IReadStationInformation, ReadStationInformation>();
             services.AddScoped<IEvaporationRepository, EvaporationRepository>();
             services.AddScoped<ILocationRepository, LocationRepository>();
             services.AddScoped<INodeRepository, NodeRepository>();

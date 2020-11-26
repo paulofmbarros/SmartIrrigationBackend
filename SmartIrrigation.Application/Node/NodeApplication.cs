@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigation.Domain;
 using SmartIrrigation.Domain.BasicCRUD.Counties;
 using SmartIrrigation.Domain.BasicCRUD.District;
@@ -25,16 +26,16 @@ namespace SmartIrrigation.Application.Node
         private readonly INodeDomain _nodeDomain;
         private readonly IDistrictDomain _districtDomain;
         private readonly ICountiesDomain _countyDomain;
-        private readonly IWeatherStationDomain _weatherStationDomain;
+        private readonly IWeatherStationApplication _weatherStationApplication;
 
-        public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain, IDistrictDomain districtDomain, ICountiesDomain countyDomain, IWeatherStationDomain weatherStationDomain)
+        public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain, IDistrictDomain districtDomain, ICountiesDomain countyDomain, IWeatherStationApplication weatherStationApplication)
         {
             _geocodingDomain = geocodingDomain;
             _locationDomain = locationDomain;
             _nodeDomain = nodeDomain;
             _districtDomain = districtDomain;
             _countyDomain = countyDomain;
-            _weatherStationDomain = weatherStationDomain;
+            _weatherStationApplication = weatherStationApplication;
         }
 
         public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
@@ -52,15 +53,11 @@ namespace SmartIrrigation.Application.Node
                     coords.Data.FirstOrDefault().Longitude);
                 
             } 
+             Station stationAdded= _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication.AddWeatherStationToDatabase(address).Name);
+
+             _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location, stationAdded.Id_Station??-1);
+
             
-            FindNearbyStationModel paraModel=new FindNearbyStationModel(float.Parse(location.Latitude,CultureInfo.InvariantCulture.NumberFormat), float.Parse(location.Longitude, CultureInfo.InvariantCulture.NumberFormat),null,null);
-            RootWeatherStationModel<NearbyWeatherStationModel> nearStation = _weatherStationDomain.FindNearByStation(paraModel);
-
-            //Todo: Retrieve Station information from database or add it if not exists
-
-            //TODO: correct this, the nearby statiton should becoome from database and not from api
-            _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location, int.Parse(nearStation.Data.FirstOrDefault().Id));
-
         }
     }
 

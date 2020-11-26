@@ -59,8 +59,21 @@ namespace SmartIrrigationBackend.Controllers
         [HttpPost("AddWeatherStationToDatabase")]
         public IActionResult AddWeatherStationToDatabase([FromBody] GeocodingAddressModelQueryParams parameters )
         {
-            _weatherStationApplication.AddWeatherStationToDatabase(parameters);
-            return Ok();
+            Station stationAdded = _weatherStationApplication.AddWeatherStationToDatabase(parameters);
+            return Ok(stationAdded);
         }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpGet("RetrieveStationByStationNameFromDatabase")]
+        public IActionResult AddWeatherStationToDatabase([FromQuery] string stationName)
+        {
+            Station station = _weatherStationApplication.RetrieveStationByStationName(stationName);
+            return Ok(station);
+        }
+
     }
 }

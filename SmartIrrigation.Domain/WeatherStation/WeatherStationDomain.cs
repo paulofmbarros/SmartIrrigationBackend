@@ -6,6 +6,7 @@ using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
 using IpmaAPI;
 using SmartIrrigation.Abstractions.Relational.Creates;
+using SmartIrrigation.Abstractions.Relational.Reads;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.NearByStation;
@@ -18,13 +19,14 @@ namespace SmartIrrigation.Domain.WeatherStation
    {
        private readonly IWeatherStationsData _weatherStationsData;
        private readonly IWeatherStationRepository _weatherStationRepository;
+       private readonly IReadStationInformation _readStationInformation;
      
 
-       public WeatherStationDomain(IWeatherStationsData weatherStationsData,  IWeatherStationRepository weatherStationRepository)
+       public WeatherStationDomain(IWeatherStationsData weatherStationsData,  IWeatherStationRepository weatherStationRepository, IReadStationInformation readStationInformation)
        {
            _weatherStationsData = weatherStationsData;
            _weatherStationRepository = weatherStationRepository;
-           
+           _readStationInformation = readStationInformation;
        }
 
        public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit) => _weatherStationsData.FindWeatherStation(query, limit);
@@ -40,5 +42,9 @@ namespace SmartIrrigation.Domain.WeatherStation
 
            return weatherStationDetails;
        }
+
+       public Station RetrieveStationByStationName(string stationName) =>
+           _readStationInformation.RetrieveStationByStationName(stationName);
+
    }
 }
