@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SmartIrrigationModels.Models.DTOS
 {
-    public class Read
+    public class Read_Hourly
     {
         public int Id_Read { get; set; }
         public DateTime DateReading { get; set; }
@@ -20,7 +20,7 @@ namespace SmartIrrigationModels.Models.DTOS
         public int Tsun { get; set; }
         public int Coco { get; set; }
 
-        public Read(int idRead, DateTime dateReading, float temperature, float dwpt, int rhum, float prcp, int snow, int wdir, float wspd, float wpgt, float pres, int tsun, int coco)
+        public Read_Hourly(int idRead, DateTime dateReading, float temperature, float dwpt, int rhum, float prcp, int snow, int wdir, float wspd, float wpgt, float pres, int tsun, int coco)
         {
             Id_Read = idRead;
             DateReading = dateReading;
