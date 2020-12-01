@@ -59,5 +59,21 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 
             //return affectedRows;
         }
+
+        public Station GetWeatherStationFromDatabaseByStationName(string stationName)
+        {
+            int affectedRows = 0;
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+
+                string sql = @"Select * from [dbo].[Station] where Name=@Name";
+                return db.QueryFirstOrDefault<Station>(sql, new {Name = stationName});
+
+
+
+            }
+
+        }
     }
 }

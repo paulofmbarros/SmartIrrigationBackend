@@ -8,5 +8,6 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
     public interface IWeatherStationRepository
     {
         void AddWeatherStationToDatabase(Station station);
+        Station GetWeatherStationFromDatabaseByStationName(string stationName);
     }
 }

@@ -30,9 +30,12 @@ namespace DevMeteoStat
             request.Method = Method.GET;
             request.AddParameter("lat", hourlyDataOfAPointParams.Lat.ToString(System.Globalization.NumberFormatInfo.InvariantInfo), ParameterType.QueryString);
             request.AddParameter("lon", hourlyDataOfAPointParams.Long.ToString(System.Globalization.NumberFormatInfo.InvariantInfo), ParameterType.QueryString);
-            request.AddParameter("alt", hourlyDataOfAPointParams.Alt, ParameterType.QueryString);
+            if (hourlyDataOfAPointParams.Alt != null)request.AddParameter("alt", hourlyDataOfAPointParams.Alt, ParameterType.QueryString);
             request.AddParameter("start", hourlyDataOfAPointParams.Start);
+            
             request.AddParameter("end", hourlyDataOfAPointParams.End);
+            
+            if(hourlyDataOfAPointParams.Tz!=null)
             request.AddParameter("tz", hourlyDataOfAPointParams.Tz);
 
             var response = client.Execute(request);

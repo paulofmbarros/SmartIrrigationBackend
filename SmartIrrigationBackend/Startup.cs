@@ -90,12 +90,13 @@ namespace SmartIrrigationBackend
             services.AddScoped<IWeatherStationRepository, WeatherStationRepository>();
             services.AddScoped<ISensorRepository, SensorRepository>();
             services.AddScoped<IReadNodeInformation, ReadNodeInformation>();
+            services.AddScoped<IReadHourlyRepository, ReadHourlyRepository>();
 
 
 
 
         //CONFIG
-        services.AddScoped<IConfigRelational, ConfigRelational>();
+            services.AddScoped<IConfigRelational, ConfigRelational>();
             services.AddScoped<IConfig, Config>();
 
             //SHARED

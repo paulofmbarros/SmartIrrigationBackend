@@ -14,7 +14,15 @@ namespace SmartIrrigationModels.Models.WeatherData
 
         public string End { get; set; }
         public string? Tz { get; set; } = "UTC";
-        
 
+        public HourlyDataOfAPointQueryParams(float lat, float l, int? alt, string start, string end, string? tz)
+        {
+            Lat = lat;
+            Long = l;
+            Alt = alt;
+            Start = start;
+            End = end;
+            Tz = tz;
+        }
     }
 }
