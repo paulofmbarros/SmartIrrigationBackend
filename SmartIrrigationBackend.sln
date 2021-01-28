@@ -39,6 +39,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpmaAPI", "IpmaAPI\IpmaAPI.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainModels", "DomainModels", "{7D7C8B62-1C61-47DD-93F7-23AF232D195F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutomaticService", "AutomaticService", "{55BC52D0-4A09-49C7-BF25-6C9D12C622F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automatic Service", "Automatic Service\Automatic Service.csproj", "{467DC0C1-EB7A-4814-A688-EBD91378FEE8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +89,10 @@ Global
 		{ACAD8429-49C0-4A3F-935D-BC48C5E6DD82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACAD8429-49C0-4A3F-935D-BC48C5E6DD82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACAD8429-49C0-4A3F-935D-BC48C5E6DD82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{467DC0C1-EB7A-4814-A688-EBD91378FEE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{467DC0C1-EB7A-4814-A688-EBD91378FEE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{467DC0C1-EB7A-4814-A688-EBD91378FEE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{467DC0C1-EB7A-4814-A688-EBD91378FEE8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +111,7 @@ Global
 		{E5B606F3-346E-450C-A44A-EBD47163FB98} = {B15AF20C-811D-4808-8FA3-6084DBBBDC7F}
 		{ACAD8429-49C0-4A3F-935D-BC48C5E6DD82} = {B15AF20C-811D-4808-8FA3-6084DBBBDC7F}
 		{7D7C8B62-1C61-47DD-93F7-23AF232D195F} = {2CE13C9D-2018-4FDB-8270-BBA0A69EFDBD}
+		{467DC0C1-EB7A-4814-A688-EBD91378FEE8} = {55BC52D0-4A09-49C7-BF25-6C9D12C622F3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2F31B5CE-7E81-4354-8565-7FB376771129}
