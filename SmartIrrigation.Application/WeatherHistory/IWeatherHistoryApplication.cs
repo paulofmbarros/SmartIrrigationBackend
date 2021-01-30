@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.Geocoding;
 using SmartIrrigationModels.Models.WeatherData;
 
 namespace SmartIrrigation.Application.WeatherHistory
@@ -15,5 +16,8 @@ namespace SmartIrrigation.Application.WeatherHistory
         RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams);
         RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt);
         int GetHistoryEvaporationByCountyName(string countyName);
+        void UpdateHistoryEvaporationForAllActiveCounties();
+        public int SaveHourlyDataOfStationInDatabaseBasedOnCoords(string latitude, string longitude);
+        void UpdateWeatherConditionsForAllActiveNodes();
     }
 }

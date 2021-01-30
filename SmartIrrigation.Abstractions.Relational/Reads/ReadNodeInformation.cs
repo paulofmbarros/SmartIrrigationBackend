@@ -30,5 +30,30 @@ namespace SmartIrrigation.Abstractions.Relational.Reads
 
             }
         }
+
+        public Node RetrieveNodeByLatLong(string latitude, string longitude)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string command = $@" SELECT N.* FROM [dbo].[Node] N
+                    inner join [dbo].[Location] L on N.Id_Location = L.Id_Location
+                where L.Latitude = @latitude and L.Longitude = @longitude";
+
+                return db.QueryFirstOrDefault<Node>(command, new { latitude = latitude, longitude=longitude });
+
+            }
+        }
+
+        public IEnumerable<Node> GetAllActiveNodes()
+        {
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                string command = $@" SELECT * FROM [dbo].[Node] where is_Enable = 1";
+
+                return db.Query<Node>(command);
+
+            }
+        }
     }
 }

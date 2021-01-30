@@ -29,6 +29,10 @@ namespace SmartIrrigation.Domain.BasicCRUD.Location
         public SmartIrrigationModels.Models.DTOS.Location RetrieveLocation(string latitude, string longitude) =>
             _locationRepository.RetrieveLocationData(latitude, longitude);
 
+        
+
+        public SmartIrrigationModels.Models.DTOS.Location RetrieveLocationByNodeId(int nodeId) =>
+            _locationRepository.RetrieveLocationByNodeId(nodeId);
 
     }
 }

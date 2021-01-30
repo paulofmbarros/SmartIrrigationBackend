@@ -20,12 +20,13 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             _config = config;
             _connectionString = _config.GetConnectionString("ConnectionStrings:mydb1");
         }
-        public int InsertEvaporationData(string[] lines, int Id_District)
+        public int InsertEvaporationData(string[] lines, int Id_County)
         {
             int affectedRows = 0;
             //using (IDbConnection db = new SqlConnection(_connectionString))
             string sql =
-                "INSERT INTO Hist_Evaporation (Reading_date,Minimum,Maxi,Range,Mean,Std,Id_County) Values (@valores);";
+                "IF NOT EXISTS (SELECT * FROM Hist_Evaporation WHERE Reading_date = @ReadingDate and Id_County= @Id_County)  " +
+                " INSERT INTO Hist_Evaporation (Reading_date,Minimum,Maxi,Range,Mean,Std,Id_County) Values (@valores);";
             using (SqlConnection cn = new SqlConnection(_connectionString))
             {
                 
@@ -34,15 +35,14 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
                     {
                         if (i != 0&&!string.IsNullOrWhiteSpace(lines[i])) //ingore first line cause the first line is the headers of csv
                         {
-                            string val = $"'{lines[i].Split(',').First()}',{string.Join(",", lines[i].Split(',').Skip(1).ToArray())}, {Id_District}";
+                            string val = $"'{lines[i].Split(',').First()}',{string.Join(",", lines[i].Split(',').Skip(1).ToArray())}, {Id_County}";
                             string SqlQuery = sql;
-                            SqlQuery=SqlQuery.Replace("@valores", val);
+                            SqlQuery=SqlQuery.Replace("@valores", val).Replace("@ReadingDate", $"'{lines[i].Split(',').First()}'").Replace("@Id_County", Id_County.ToString());
 
                         using (SqlCommand cmd = new SqlCommand(SqlQuery, cn))
                         {
                                affectedRows+=cmd.ExecuteNonQuery();
                         }
-                            //affectedRows += db.Execute(sql);
 
                         }
                     }
@@ -50,6 +50,20 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             }
 
             return affectedRows;
+        }
+
+        public List<County> RetrieveCountiesThatHaveActiveNodes()
+        {
+            IEnumerable<County> counties;
+
+            using (SqlConnection cn = new SqlConnection(_connectionString))
+            {
+                counties= cn.Query<County>($@"Select C.*from Location L
+                                                join Counties C on L.Id_Countie = C.CountyId
+                                                join Node N on N.Id_Location = L.Id_Location and N.Is_Enable = 1 and N.Is_Enable is not null");
+            }
+
+            return counties.ToList();
         }
     }
 }

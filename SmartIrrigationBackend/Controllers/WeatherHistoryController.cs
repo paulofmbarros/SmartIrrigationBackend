@@ -2,6 +2,7 @@
 using SmartIrrigation.Application.WeatherHistory;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.Geocoding;
 using SmartIrrigationModels.Models.NearByStation;
 using SmartIrrigationModels.Models.WeatherData;
 using SmartIrrigationModels.Models.WeatherStation;
@@ -31,6 +32,18 @@ namespace SmartIrrigationBackend.Controllers
         {
             RootWeatherDataModel<HourlyDataModel> data = _weatherHistoryApplication.GetHourlyDataOfStation(hourlyDataOfStationParams);
             return Ok(data);
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("SaveHourlyDataOfStationInDatabase")]
+        public IActionResult SaveHourlyDataOfStationInDatabase(string latitude, string longitude)
+        {
+            int rowsAdded = _weatherHistoryApplication.SaveHourlyDataOfStationInDatabaseBasedOnCoords(latitude, longitude);
+            return Ok(rowsAdded);
         }
 
         /// <summary>
@@ -110,6 +123,30 @@ namespace SmartIrrigationBackend.Controllers
             {
                 return Ok($"{rowsAffeted} rows were affected");
             }
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateHistoryEvaporationForAllActiveCounties")]
+        public IActionResult UpdateHistoryEvaporationForAllActiveCounties()
+        {
+            _weatherHistoryApplication.UpdateHistoryEvaporationForAllActiveCounties();
+            return Ok();
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("UpdateWeatherConditionsForAllActiveNodes")]
+        public IActionResult UpdateWeatherConditionsForAllActiveNodes()
+        {
+            _weatherHistoryApplication.UpdateWeatherConditionsForAllActiveNodes();
+            return Ok();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DevMeteoStat;
+﻿using System.Collections.Generic;
+using DevMeteoStat;
 using DevMeteoStat.WeatherStationsData;
 using IpmaAPI;
 using SmartIrrigation.Abstractions.Relational.Creates;
@@ -38,10 +39,15 @@ namespace SmartIrrigation.Domain.WeatherHistory
         public RootWeatherDataModel<HourlyDataModel> GetHourlyDataOfPoint(
             HourlyDataOfAPointQueryParams hourlyDataOfAPointParams, string stationName)
         {
-           Station station = _WeatherStationRepository.GetWeatherStationFromDatabaseByStationName(stationName);
             RootWeatherDataModel<HourlyDataModel> hourlyData = _pointData.GetHourlyDataOfPoint(hourlyDataOfAPointParams);
-            _readHourlyRepository.AddReadHourly(hourlyData,true,station.Id_Station);
             return hourlyData;
+        }
+
+        public int AddHourlyDataOfPointToDatabase(
+            RootWeatherDataModel<HourlyDataModel> hourlyData, string stationName, int idNode)
+        {
+            Station station = _WeatherStationRepository.GetWeatherStationFromDatabaseByStationName(stationName);
+            return _readHourlyRepository.AddReadHourly(hourlyData, true, station.Id_Station, idNode);
         }
 
         public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams) => _pointData.DailyDataOfAPoint(dailyDataOfAPointParams);
@@ -51,7 +57,12 @@ namespace SmartIrrigation.Domain.WeatherHistory
         public string[] GetHistoryEvaporationByCountyName(County county, string districtName) =>
             _ipmaDataRequisitions.GetHistoryEvaporationByCountyName(county, districtName);
 
-        public int SaveEvaporationHistoryInDatabase(string[] lines, int Id_District) =>
-            _evaporationRepository.InsertEvaporationData(lines, Id_District);
+        public int SaveEvaporationHistoryInDatabase(string[] lines, int Id_County) =>
+            _evaporationRepository.InsertEvaporationData(lines, Id_County);
+
+        public List<County> RetrieveCountiesThatHaveActiveNodes() =>
+            _evaporationRepository.RetrieveCountiesThatHaveActiveNodes();
+
+
     }
 }

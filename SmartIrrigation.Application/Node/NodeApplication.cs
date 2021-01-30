@@ -66,6 +66,11 @@ namespace SmartIrrigation.Application.Node
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>
             _nodeDomain.GetNodeByStreet(street);
 
+        public SmartIrrigationModels.Models.DTOS.Node GetNodeByLatLong(string latitude, string longitude) =>
+            _nodeDomain.GetNodeByLatLong(latitude, longitude);
+
+        public List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes() => _nodeDomain.GetAllActiveNodes().ToList();
+
 
     }
 

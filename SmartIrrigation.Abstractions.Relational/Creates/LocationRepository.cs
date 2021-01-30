@@ -70,5 +70,20 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 
             }
         }
+
+        public Location RetrieveLocationByNodeId(int nodeId)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+
+                string sql = "SELECT  L.* FROM [dbo].[Node] N " +
+                             "inner join  [dbo].[Location] L on N.Id_Location = L.Id_Location " +
+                             "where N.Id_Node = @NodeId";
+                return db.QueryFirstOrDefault<Location>(sql, new { NodeId = nodeId });
+
+
+
+            }
+        }
     }
 }

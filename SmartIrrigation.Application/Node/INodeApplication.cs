@@ -9,5 +9,7 @@ namespace SmartIrrigation.Application.Node
     {
         void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor,  bool isSprinkler, bool isEnable);
         SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street);
+        SmartIrrigationModels.Models.DTOS.Node GetNodeByLatLong(string latitude, string longitude);
+        List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes();
     }
 }

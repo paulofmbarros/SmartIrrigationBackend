@@ -25,24 +25,27 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
         }
 
 
-        public void AddReadHourly(RootWeatherDataModel<HourlyDataModel> rootWeatherDataModel, bool isStation, int? idStation)
+        public int AddReadHourly(RootWeatherDataModel<HourlyDataModel> rootWeatherDataModel, bool isStation, int? idStation, int idNode)
         {
+            int rowsupdated = 0;
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
 
                 foreach (var item in rootWeatherDataModel.Data)
                 {
                     string sql =
-                        $"Insert into [dbo].[Read_Hourly] (DateReading,Temperature,Dwpt, Rhum, Prcp, Snow, Wdir, Wspd, Wpgt, Pres, Tsun, Coco, IsStation, IdReader) values (@DateReading, @Temperature, @Dwpt, @Rhum, @Prcp, @Snow, @Wdir, @Wspd, @Wpgt, @Pres, @Tsun, @Coco, @IsStation, @IdReader)";
-                    db.Execute(sql,
+                        $"Insert into [dbo].[Read_Hourly] (DateReading,Temperature,Dwpt, Rhum, Prcp, Snow, Wdir, Wspd, Wpgt, Pres, Tsun, Coco, IsStation, IdNode) values (@DateReading, @Temperature, @Dwpt, @Rhum, @Prcp, @Snow, @Wdir, @Wspd, @Wpgt, @Pres, @Tsun, @Coco, @IsStation, @IdNode)";
+                   rowsupdated = db.Execute(sql,
                         new
                         {
                             DateReading = item.Time, Temperature = item.Temp, Dwpt = item.Dwpt, Rhum = item.Rhum,
                             Prcp = item.Prcp, Snow = item.Snow, Wdir = item.WDir, Wspd = item.WSpd, Wpgt = item.WPgt,
-                            Pres = item.Pres, Tsun = item.Tsun, Coco = item.Coco, isStation=isStation, IdReader=idStation
+                            Pres = item.Pres, Tsun = item.Tsun, Coco = item.Coco, isStation=isStation, idNode=idNode
                         });
                 }
             }
+
+            return rowsupdated;
         }
     }
 }

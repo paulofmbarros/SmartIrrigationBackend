@@ -9,5 +9,6 @@ namespace SmartIrrigation.Application.BasicCRUD.Location
     {
         void SaveNewLocation(GeocodingAddressModelQueryParams parameters);
         SmartIrrigationModels.Models.DTOS.Location RetrieveLocation(string latitude, string longitude);
+        SmartIrrigationModels.Models.DTOS.Location RetrieveLocationByNodeId(int nodeId);
     }
 }

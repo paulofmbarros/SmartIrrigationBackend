@@ -18,6 +18,8 @@ namespace SmartIrrigation.Domain.WeatherHistory
         RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt);
         string[] GetHistoryEvaporationByCountyName(County county, string districtName);
 
-        int SaveEvaporationHistoryInDatabase(string[] lines, int Id_District);
+        int SaveEvaporationHistoryInDatabase(string[] lines, int Id_County);
+        List<County> RetrieveCountiesThatHaveActiveNodes();
+        int AddHourlyDataOfPointToDatabase(RootWeatherDataModel<HourlyDataModel> hourlyData, string nameEn, int idNode);
     }
 }

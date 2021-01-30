@@ -13,6 +13,7 @@ using SmartIrrigationModels.Models.WeatherStation;
 using System;
 using System.Globalization;
 using System.Linq;
+using SmartIrrigation.Domain.Node;
 
 namespace SmartIrrigation.Application.WeatherStation
 {
@@ -24,8 +25,10 @@ namespace SmartIrrigation.Application.WeatherStation
         private readonly IGeocodingDomain _geocodingDomain;
         private readonly ILocationDomain _locationDomain;
         private readonly IWeatherHistoryDomain _weatherHistoryDomain;
+        private readonly INodeDomain _nodeDomain;
 
-        public WeatherStationApplication(IWeatherStationDomain weatherStationDomain, ICountiesDomain countiesDomain, IDistrictDomain districtDomain, IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, IWeatherHistoryDomain weatherHistoryDomain)
+
+        public WeatherStationApplication(IWeatherStationDomain weatherStationDomain, ICountiesDomain countiesDomain, IDistrictDomain districtDomain, IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, IWeatherHistoryDomain weatherHistoryDomain, INodeDomain nodeDomain )
         {
             _weatherStationDomain = weatherStationDomain;
             _countiesDomain = countiesDomain;
@@ -33,6 +36,8 @@ namespace SmartIrrigation.Application.WeatherStation
             _geocodingDomain = geocodingDomain;
             _locationDomain = locationDomain;
             _weatherHistoryDomain = weatherHistoryDomain;
+            _nodeDomain = nodeDomain;
+
         }
 
         public RootWeatherStationModel<WeatherStationWithParamsModel> FindWeatherStation(string query, int? limit) => _weatherStationDomain.FindWeatherStation(query, limit);
@@ -73,7 +78,11 @@ namespace SmartIrrigation.Application.WeatherStation
             HourlyDataOfAPointQueryParams data = new HourlyDataOfAPointQueryParams(
                 float.Parse(locationquerycoords.Latitude, CultureInfo.InvariantCulture.NumberFormat), float.Parse(locationquerycoords.Longitude, CultureInfo.InvariantCulture.NumberFormat), null,
                 DateTime.Now.AddDays(-9).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), null);
-            _weatherHistoryDomain.GetHourlyDataOfPoint(data, stationAdded.Name);
+            var hourlyData = _weatherHistoryDomain.GetHourlyDataOfPoint(data, stationAdded.Name);
+            SmartIrrigationModels.Models.DTOS.Node node = _nodeDomain.GetNodeByLatLong(locationStation.Latitude, locationStation.Longitude);
+
+            _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.Id_Node);
+
             return stationAdded;
         }
     }

@@ -34,5 +34,17 @@ namespace SmartIrrigationBackend.Controllers
 
             return NotFound("Location Not Found in the database");
         }
+
+        [HttpGet("RetrieveLocationByNodeId")]
+        public IActionResult RetrieveLocationByNodeId(int nodeId)
+        {
+            Location location = _locationApplication.RetrieveLocationByNodeId(nodeId);
+            if (location != null)
+            {
+                return Ok(location);
+            }
+
+            return NotFound("Location Not Found in the database");
+        }
     }
 }

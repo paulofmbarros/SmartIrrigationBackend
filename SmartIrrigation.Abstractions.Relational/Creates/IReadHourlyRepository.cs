@@ -8,6 +8,6 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 {
     public interface IReadHourlyRepository
     {
-        void AddReadHourly(RootWeatherDataModel<HourlyDataModel> rootWeatherDataModel, bool isStation, int? idStation);
+        int AddReadHourly(RootWeatherDataModel<HourlyDataModel> rootWeatherDataModel, bool isStation, int? idStation, int IdNode);
     }
 }
