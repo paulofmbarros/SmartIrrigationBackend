@@ -98,7 +98,15 @@ namespace SmartIrrigation.Application.WeatherHistory
 
         public void UpdateWeatherConditionsForAllActiveNodes()
         {
-            throw new NotImplementedException();
+            //first get all active nodes
+
+            List<SmartIrrigationModels.Models.DTOS.Node> activeNodes = _nodeDomain.GetAllActiveNodes().ToList();
+
+            foreach (var node in activeNodes)
+            {
+                Location loc = _locationDomain.RetrieveLocationByNodeId(node.Id_Node);
+                SaveHourlyDataOfStationInDatabaseBasedOnCoords(loc.Latitude, loc.Longitude);
+            }
         }
     }
 }

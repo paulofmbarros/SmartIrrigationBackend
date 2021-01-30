@@ -34,6 +34,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
                 foreach (var item in rootWeatherDataModel.Data)
                 {
                     string sql =
+                        $"IF NOT EXISTS (SELECT * FROM [dbo].[Read_Hourly] WHERE DateReading = @DateReading and IdNode = @IdNode) " +
                         $"Insert into [dbo].[Read_Hourly] (DateReading,Temperature,Dwpt, Rhum, Prcp, Snow, Wdir, Wspd, Wpgt, Pres, Tsun, Coco, IsStation, IdNode) values (@DateReading, @Temperature, @Dwpt, @Rhum, @Prcp, @Snow, @Wdir, @Wspd, @Wpgt, @Pres, @Tsun, @Coco, @IsStation, @IdNode)";
                    rowsupdated = db.Execute(sql,
                         new
