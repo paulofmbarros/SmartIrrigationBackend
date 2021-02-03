@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using SmartIrrigation.Application.WeatherHistory;
 using SmartIrrigation.Application.WeatherStation;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 using SmartIrrigationModels.Models.NearByStation;
 using SmartIrrigationModels.Models.WeatherData;
@@ -147,6 +149,15 @@ namespace SmartIrrigationBackend.Controllers
         {
             _weatherHistoryApplication.UpdateWeatherConditionsForAllActiveNodes();
             return Ok();
+        }
+
+
+    
+        [HttpGet("GetWeatherConditionsForAllActiveNodes")]
+        public IActionResult GetWeatherConditionsForAllActiveNodes()
+        {
+             List<Read_Hourly> data = _weatherHistoryApplication.GetWeatherConditionsForAllActiveNodes();
+             return Ok(data);
         }
     }
 }

@@ -41,7 +41,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainModels", "DomainModel
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AutomaticService", "AutomaticService", "{55BC52D0-4A09-49C7-BF25-6C9D12C622F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Automatic Service", "Automatic Service\Automatic Service.csproj", "{467DC0C1-EB7A-4814-A688-EBD91378FEE8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Automatic Service", "Automatic Service\Automatic Service.csproj", "{467DC0C1-EB7A-4814-A688-EBD91378FEE8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{343CFD88-CCC5-4D6C-A5C5-CBF5C0E8FBC9} = {343CFD88-CCC5-4D6C-A5C5-CBF5C0E8FBC9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

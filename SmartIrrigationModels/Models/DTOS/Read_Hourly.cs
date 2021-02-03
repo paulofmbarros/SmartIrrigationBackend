@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace SmartIrrigationModels.Models.DTOS
 {
@@ -18,9 +19,11 @@ namespace SmartIrrigationModels.Models.DTOS
         public float Wpgt { get; set; }
         public float Pres { get; set; }
         public int Tsun { get; set; }
-        public int Coco { get; set; }
+        public int Coco { get; set; } 
+        public bool IsStation { get; set; } 
+        public int IdNode { get; set; } 
 
-        public Read_Hourly(int idRead, DateTime dateReading, float temperature, float dwpt, int rhum, float prcp, int snow, int wdir, float wspd, float wpgt, float pres, int tsun, int coco)
+        public Read_Hourly(int idRead, DateTime dateReading, float temperature, float dwpt, int rhum, float prcp, int snow, int wdir, float wspd, float wpgt, float pres, int tsun, int coco, bool isStation, int idNode)
         {
             Id_Read = idRead;
             DateReading = dateReading;
@@ -35,6 +38,13 @@ namespace SmartIrrigationModels.Models.DTOS
             Pres = pres;
             Tsun = tsun;
             Coco = coco;
+            IsStation = isStation;
+            IdNode = idNode;
+        }
+
+        public Read_Hourly()
+        {
+
         }
     }
 }

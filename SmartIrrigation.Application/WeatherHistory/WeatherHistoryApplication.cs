@@ -108,5 +108,10 @@ namespace SmartIrrigation.Application.WeatherHistory
                 SaveHourlyDataOfStationInDatabaseBasedOnCoords(loc.Latitude, loc.Longitude);
             }
         }
+
+        public List<Read_Hourly> GetWeatherConditionsForAllActiveNodes()
+        {
+            return _weatherHistoryDomain.GetWeatherConditionsForAllActiveNodes();
+        }
     }
 }

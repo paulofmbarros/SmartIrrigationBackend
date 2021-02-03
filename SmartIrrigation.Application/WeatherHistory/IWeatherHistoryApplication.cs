@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SmartIrrigationModels.Models;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 using SmartIrrigationModels.Models.WeatherData;
 
@@ -19,5 +20,6 @@ namespace SmartIrrigation.Application.WeatherHistory
         void UpdateHistoryEvaporationForAllActiveCounties();
         public int SaveHourlyDataOfStationInDatabaseBasedOnCoords(string latitude, string longitude);
         void UpdateWeatherConditionsForAllActiveNodes();
+        List<Read_Hourly> GetWeatherConditionsForAllActiveNodes();
     }
 }

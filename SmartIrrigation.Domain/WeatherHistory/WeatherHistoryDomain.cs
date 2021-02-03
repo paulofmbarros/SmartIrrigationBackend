@@ -50,6 +50,11 @@ namespace SmartIrrigation.Domain.WeatherHistory
             return _readHourlyRepository.AddReadHourly(hourlyData, true, station.Id_Station, idNode);
         }
 
+        public List<Read_Hourly> GetWeatherConditionsForAllActiveNodes()
+        {
+            return _readHourlyRepository.GetWeatherConditionsForAllActiveNodes();
+        }
+
         public RootWeatherDataModel<DailyDataModel> DailyDataOfAPoint(DailyDataOfAPointQueryParams dailyDataOfAPointParams) => _pointData.DailyDataOfAPoint(dailyDataOfAPointParams);
 
         public RootWeatherDataModel<ClimateNormalsOfAPointDataModel> ClimateNormalsOfAPoint(float lat, float lon, int alt) => _pointData.ClimateNormalsOfAPoint(lat, lon, alt);
