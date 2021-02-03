@@ -31,7 +31,7 @@ namespace Automatic_Service
                 MetricsComparisonLogicService metricsService = new MetricsComparisonLogicService();
                 List<List<Read_Hourly>> activeNodesWith24HoursReadings = objsync.GetWeatherConditionsForAllActiveNodes();
 
-                //Checks The temperature
+                //Checks The temperature  
                 if (metricsService.IsTheTemperatureOkToSprinkle(activeNodesWith24HoursReadings))
                 {
 
