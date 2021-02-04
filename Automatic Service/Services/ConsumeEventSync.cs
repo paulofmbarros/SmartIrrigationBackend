@@ -7,7 +7,9 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.DTOS;
+using SmartIrrigationModels.Models.WeatherForecast;
 
 namespace Automatic_Service.Services
 {
@@ -32,6 +34,28 @@ namespace Automatic_Service.Services
 
                 }
                 return new List<List<Read_Hourly>>();
+            }
+        }
+
+        public RootWeatherForecast<Daily> GetWeatherForecast() //Get All Events Records  
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                var response = client.GetAsync("api/WeatherForecast/GetWeatherForecastByIdNode?idNode=1").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseAsString = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<RootWeatherForecast<Daily>>(responseAsString);
+
+                }
+                return new RootWeatherForecast<Daily>();
             }
         }
     }
