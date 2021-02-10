@@ -58,6 +58,25 @@ namespace Automatic_Service.Services
                 return new RootWeatherForecast<Daily>();
             }
         }
+
+        public void ActivateSprinkler(int idNode)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                HttpContent c = new StringContent(idNode.ToString(), Encoding.UTF8, "application/json");
+
+                var response = client.PostAsync("api/Node/ActivateSprinkler", c).Result;
+
+              
+               
+            }
+        }
     }
     
 }

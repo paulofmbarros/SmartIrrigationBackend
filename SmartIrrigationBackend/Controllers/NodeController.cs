@@ -65,6 +65,31 @@ namespace SmartIrrigationBackend.Controllers
             return Ok(nodes);
         }
 
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("ActivateSprinkler")]
+        public IActionResult ActivateSprinkler([FromBody] int idNode)
+        {
+            _nodeApplication.ActivateSprinkler(idNode);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("DeactivateSprinkler")]
+        public IActionResult DeactivateSprinkler([FromBody]int idNode)
+        {
+            _nodeApplication.DeactivateSprinkler(idNode);
+            return Ok();
+        }
+
+       
 
     }
 }

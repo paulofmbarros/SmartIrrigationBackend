@@ -19,7 +19,7 @@ using SmartIrrigationModels.Models.WeatherStation;
 
 namespace SmartIrrigation.Application.Node
 {
-    public class NodeApplication :INodeApplication
+    public class NodeApplication : INodeApplication
     {
         private readonly IGeocodingDomain _geocodingDomain;
         private readonly ILocationDomain _locationDomain;
@@ -28,7 +28,9 @@ namespace SmartIrrigation.Application.Node
         private readonly ICountiesDomain _countyDomain;
         private readonly IWeatherStationApplication _weatherStationApplication;
 
-        public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain, IDistrictDomain districtDomain, ICountiesDomain countyDomain, IWeatherStationApplication weatherStationApplication)
+        public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain,
+            IDistrictDomain districtDomain, ICountiesDomain countyDomain,
+            IWeatherStationApplication weatherStationApplication)
         {
             _geocodingDomain = geocodingDomain;
             _locationDomain = locationDomain;
@@ -39,12 +41,13 @@ namespace SmartIrrigation.Application.Node
         }
 
         public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
-             bool isEnable)
+            bool isEnable)
         {
 
 
             //TODO: REFACTOR THIS
-            RootGeocodingDataModel<GeocodingAddressResponseModel> coords =_geocodingDomain.GetCoordsFromAddress(address);
+            RootGeocodingDataModel<GeocodingAddressResponseModel> coords =
+                _geocodingDomain.GetCoordsFromAddress(address);
             Location location = _locationDomain.RetrieveLocation(coords.Data.FirstOrDefault().Latitude,
                 coords.Data.FirstOrDefault().Longitude);
             if (location == null)
@@ -54,13 +57,17 @@ namespace SmartIrrigation.Application.Node
                 _locationDomain.InsertLocationData(coords, district.Id_District, county.CountyId);
                 location = _locationDomain.RetrieveLocation(coords.Data.FirstOrDefault().Latitude,
                     coords.Data.FirstOrDefault().Longitude);
-                
-            } 
-             Station stationAdded= _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication.AddWeatherStationToDatabase(address).Name);
 
-             _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location, stationAdded.Id_Station??-1);
+            }
 
-            
+            Station stationAdded =
+                _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication
+                    .AddWeatherStationToDatabase(address).Name);
+
+            _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location,
+                stationAdded.Id_Station ?? -1);
+
+
         }
 
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>
@@ -69,10 +76,14 @@ namespace SmartIrrigation.Application.Node
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByLatLong(string latitude, string longitude) =>
             _nodeDomain.GetNodeByLatLong(latitude, longitude);
 
-        public List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes() => _nodeDomain.GetAllActiveNodes().ToList();
+        public List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes() =>
+            _nodeDomain.GetAllActiveNodes().ToList();
+
+        public void ActivateSprinkler(int idNode) =>
+            _nodeDomain.ActivateSprinkler(idNode);
+
+        public void DeactivateSprinkler(int idNode) => _nodeDomain.DectivateSprinkler(idNode);
 
 
     }
-
-    
 }

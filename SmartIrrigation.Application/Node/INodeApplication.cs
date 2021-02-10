@@ -11,5 +11,7 @@ namespace SmartIrrigation.Application.Node
         SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street);
         SmartIrrigationModels.Models.DTOS.Node GetNodeByLatLong(string latitude, string longitude);
         List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes();
+        void ActivateSprinkler(int idNode);
+        void DeactivateSprinkler(int idNode);
     }
 }

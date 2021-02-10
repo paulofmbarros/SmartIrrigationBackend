@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Text;
 using Dapper;
 using SmartIrrigation.Abstractions.Relational.Configuration;
+using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigation.Abstractions.Relational.Creates
@@ -31,6 +32,28 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             }
 
             //return affectedRows;
+        }
+
+        public void ActivateSprinkler(int idNode)
+        {
+            using(IDbConnection db = new SqlConnection(_connectionString))
+            {
+                //string sqlSelect = "Select Count(*) From Node";
+                //int count =db.QueryFirst<int>(sqlSelect);
+                string sqlInsert = $"Update [dbo].[Node] set is_SprinklerON=1 where Id_Node={idNode}";
+                db.Execute(sqlInsert);
+            }
+        }
+
+        public void DectivateSprinkler(int idNode)
+        {
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                //string sqlSelect = "Select Count(*) From Node";
+                //int count =db.QueryFirst<int>(sqlSelect);
+                string sqlInsert = $"Update [dbo].[Node] set is_SprinklerON=0 where Id_Node = {idNode}";
+                db.Execute(sqlInsert);
+            }
         }
     }
 }

@@ -30,6 +30,10 @@ namespace SmartIrrigation.Domain.Node
 
         public IEnumerable<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes() => _nodeInformation.GetAllActiveNodes();
 
+        public void ActivateSprinkler(int idNode) =>
+            _nodeRepository.ActivateSprinkler(idNode);
+
+        public void DectivateSprinkler(int idNode)=> _nodeRepository.DectivateSprinkler(idNode);
 
     }
 }
