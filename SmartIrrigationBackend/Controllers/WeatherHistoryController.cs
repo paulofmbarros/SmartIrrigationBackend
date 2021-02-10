@@ -139,6 +139,19 @@ namespace SmartIrrigationBackend.Controllers
             return Ok();
         }
 
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpGet("GetMeanEvaportranspirationByIdNode")]
+        public IActionResult GetMeanEvaportranspirationByIdNode(int idNode)
+        {
+            float mean=_weatherHistoryApplication.GetMeanEvaportranspirationByIdNode(idNode);
+            return Ok(mean);
+        }
+
         /// <summary>
         /// Add a new Weather station to database
         /// </summary>

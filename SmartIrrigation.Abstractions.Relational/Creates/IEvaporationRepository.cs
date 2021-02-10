@@ -9,5 +9,6 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
     {
         int InsertEvaporationData(string[] lines, int Id_District);
         List<County> RetrieveCountiesThatHaveActiveNodes();
+        float GetMeanEvaportranspirationByIdNode(int idNode);
     }
 }

@@ -65,5 +65,22 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 
             return counties.ToList();
         }
+
+        public float GetMeanEvaportranspirationByIdNode(int idNode)
+        {
+            string sql = @$"sELECT avg(Hist.Mean) Means From (
+                            SELECT TOP 30 H.* 
+                              FROM [smartirrigationdatabase].[dbo].[Node] N
+                              inner Join Location L on N.Id_Location=L.Id_Location
+                              inner join Hist_Evaporation H on H.Id_County=L.Id_Countie
+                              where N.Id_Node={idNode} order by Id_HistEvaporation desc 
+                              ) Hist";
+
+            using (SqlConnection cn = new SqlConnection(_connectionString))
+            {
+                float mean= cn.QueryFirstOrDefault<float>(sql);
+                return mean;
+            }
+        }
     }
 }

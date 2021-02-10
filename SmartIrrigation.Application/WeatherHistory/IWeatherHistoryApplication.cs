@@ -21,5 +21,6 @@ namespace SmartIrrigation.Application.WeatherHistory
         public int SaveHourlyDataOfStationInDatabaseBasedOnCoords(string latitude, string longitude);
         void UpdateWeatherConditionsForAllActiveNodes();
         List<Read_Hourly> GetWeatherConditionsForAllActiveNodes();
+        float GetMeanEvaportranspirationByIdNode(int idNode);
     }
 }

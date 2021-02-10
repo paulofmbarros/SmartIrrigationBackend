@@ -77,6 +77,92 @@ namespace Automatic_Service.Services
                
             }
         }
+
+        public void DeactivateSprinkler(int idNode)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                HttpContent c = new StringContent(idNode.ToString(), Encoding.UTF8, "application/json");
+
+                var response = client.PostAsync("api/Node/DeactivateSprinkler", c).Result;
+
+
+
+            }
+        }
+
+        public float GetEvapoTranspirationForLast30Days(int idNode)
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                var response = client.GetAsync($"api/WeatherHistory/GetMeanEvaportranspirationByIdNode?idNode={idNode}").Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseAsString = response.Content.ReadAsStringAsync().Result;
+                    return JsonConvert.DeserializeObject<float>(responseAsString);
+
+                }
+                return new float();
+            }
+        }
+
+
+        public void UpdateWeatherConditionsForAllActiveNodes()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                HttpContent c = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+
+                var response = client.PostAsync("api/WeatherHistory/UpdateWeatherConditionsForAllActiveNodes", c).Result;
+
+
+
+            }
+        }
+
+        public void UpdateHistoryEvaporationForAllActiveCounties()
+        {
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri("https://localhost:44351/");
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                HttpContent c = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+
+                var response = client.PostAsync("api/WeatherHistory/UpdateHistoryEvaporationForAllActiveCounties", c).Result;
+
+
+
+            }
+        }
+
+
+
+        
+
+
     }
     
 }

@@ -22,5 +22,6 @@ namespace SmartIrrigation.Domain.WeatherHistory
         List<County> RetrieveCountiesThatHaveActiveNodes();
         int AddHourlyDataOfPointToDatabase(RootWeatherDataModel<HourlyDataModel> hourlyData, string nameEn, int idNode);
         List<Read_Hourly> GetWeatherConditionsForAllActiveNodes();
+        float GetMeanEvaportranspirationByIdNode(int idNode);
     }
 }

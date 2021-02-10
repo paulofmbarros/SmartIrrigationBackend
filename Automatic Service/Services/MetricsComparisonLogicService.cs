@@ -19,7 +19,7 @@ namespace Automatic_Service.Services
 
                 //TODO: work on this interval
                 //if the actual tempeature is more or less than 2 degrees of the avg than activate de IS
-                if (nearestReadValue.Temperature == avg + 2 || nearestReadValue.Temperature == avg - 2)
+                if (nearestReadValue.Temperature <= avg + 2 || nearestReadValue.Temperature > avg - 2)
                 {
                     return true;
                 }

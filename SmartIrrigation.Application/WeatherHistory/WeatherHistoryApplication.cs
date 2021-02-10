@@ -113,5 +113,10 @@ namespace SmartIrrigation.Application.WeatherHistory
         {
             return _weatherHistoryDomain.GetWeatherConditionsForAllActiveNodes();
         }
+
+        public float GetMeanEvaportranspirationByIdNode(int idNode) =>
+            _weatherHistoryDomain.GetMeanEvaportranspirationByIdNode(idNode);
+
+
     }
 }
