@@ -54,17 +54,21 @@ namespace SmartIrrigation.Application.Sensor
             SmartIrrigationModels.Models.DTOS.Node nodeAdded = _nodeDomain.GetNodeByStreet(location.Description);
             if (nodeAdded == null)
             {
-                _nodeDomain.AddNewNode(address,true,false,false,location.Id_Location,0);
+                //TODO: VER ISTO POR CAUSA DO IDNEARSTATION
+                _nodeDomain.AddNewNode(address,true,false,false,location.Id_Location,0, true,true
+                
+                
+                );
             }
             else
             {
-                if (!nodeAdded.Is_RealSensor)
+                if (!nodeAdded.IsRealSensor)
                 {
                     return -1;
                 }
             }
 
-            int rowsAffected =_sensorDomain.AddNewSensor(location.Description,location.Id_Location??0,nodeAdded.Id_Node, isEnable);
+            int rowsAffected =_sensorDomain.AddNewSensor(location.Description,location.Id_Location??0,nodeAdded.IdNode, isEnable);
 
             return rowsAffected;
         }

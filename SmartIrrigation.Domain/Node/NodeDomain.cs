@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using SmartIrrigation.Abstractions.Relational.Creates;
 using SmartIrrigation.Abstractions.Relational.Reads;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.Geocoding;
 
 namespace SmartIrrigation.Domain.Node
@@ -19,8 +20,8 @@ namespace SmartIrrigation.Domain.Node
         }
 
         public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,
-             bool isEnable, int? locationIdLocation, int IdNearStation) =>
-            _nodeRepository.AddNewNode(address, isRealSensor, isSprinkler, isEnable, locationIdLocation, IdNearStation);
+             bool isEnable, int? locationIdLocation, int IdNearStation, bool isLightOn, bool isSecurityCameraOn) =>
+            _nodeRepository.AddNewNode(address, isRealSensor, isSprinkler, isEnable, locationIdLocation, IdNearStation,  isLightOn,  isSecurityCameraOn);
 
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>
             _nodeInformation.RetrieveNodeByStreet(street);
@@ -34,6 +35,8 @@ namespace SmartIrrigation.Domain.Node
             _nodeRepository.ActivateSprinkler(idNode);
 
         public void DectivateSprinkler(int idNode)=> _nodeRepository.DectivateSprinkler(idNode);
+        public DashboardNodeData GetNodeDashboardDataById(int idNode) => _nodeRepository.GetNodeDashboardDataById(idNode);
+
 
     }
 }

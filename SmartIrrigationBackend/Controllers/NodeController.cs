@@ -23,9 +23,9 @@ namespace SmartIrrigationBackend.Controllers
         /// <param name="findStationParams"></param>
         /// <returns></returns>
         [HttpPost("AddNewNode")]
-        public IActionResult AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable = false)
+        public IActionResult AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable = true, bool isLightOn=true, bool isSecurityCameraOn=true)
         {
-            _nodeApplication.AddNewNode(address, isRealSensor, isSprinkler, isEnable);
+            _nodeApplication.AddNewNode(address, isRealSensor, isSprinkler, isEnable, isLightOn, isSecurityCameraOn);
             return Ok();
         }
 
@@ -89,7 +89,19 @@ namespace SmartIrrigationBackend.Controllers
             return Ok();
         }
 
-       
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpGet("GetNodeDashboardDataById")]
+        public IActionResult GetNodeDashboardDataById([FromQuery] int idNode)
+        {
+            var data = _nodeApplication.GetNodeDashboardDataById(idNode);
+            return Ok(data);
+        }
+
 
     }
 }

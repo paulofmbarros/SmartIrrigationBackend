@@ -25,8 +25,8 @@ namespace SmartIrrigation.Application.WeatherForecast
         public object GetWeatherForecastByIdNode(int idNode)
         {
             SmartIrrigationModels.Models.DTOS.Node node = _nodeDomain.GetAllActiveNodes()
-                .Where(x => x.Id_Node == idNode).FirstOrDefault();
-            Location nodeLocation = _locationDomain.RetrieveLocationByNodeId(node.Id_Node);
+                .Where(x => x.IdNode == idNode).FirstOrDefault();
+            Location nodeLocation = _locationDomain.RetrieveLocationByNodeId(node.IdNode);
             return _weatherForecastDomain.GetWeatherForecast(nodeLocation.Latitude, nodeLocation.Longitude);
 
 

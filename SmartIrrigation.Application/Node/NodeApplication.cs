@@ -41,7 +41,7 @@ namespace SmartIrrigation.Application.Node
         }
 
         public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
-            bool isEnable)
+            bool isEnable, bool isLightOn, bool isSecurityCameraOn)
         {
 
 
@@ -65,7 +65,8 @@ namespace SmartIrrigation.Application.Node
                     .AddWeatherStationToDatabase(address).Name);
 
             _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location,
-                stationAdded.Id_Station ?? -1);
+                stationAdded.Id_Station ?? -1, isLightOn, isSecurityCameraOn);
+
 
 
         }
@@ -83,6 +84,7 @@ namespace SmartIrrigation.Application.Node
             _nodeDomain.ActivateSprinkler(idNode);
 
         public void DeactivateSprinkler(int idNode) => _nodeDomain.DectivateSprinkler(idNode);
+        public DashboardNodeData GetNodeDashboardDataById(int idNode) => _nodeDomain.GetNodeDashboardDataById(idNode);
 
 
     }

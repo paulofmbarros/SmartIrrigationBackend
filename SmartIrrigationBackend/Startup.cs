@@ -53,6 +53,8 @@ namespace SmartIrrigationBackend
         }
 
         public IConfiguration Configuration { get; }
+        readonly string CorsPolicy = "_corsPolicy";
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -111,6 +113,16 @@ namespace SmartIrrigationBackend
             services.AddControllers();
             services.AddSwaggerGen();
 
+            services
+                .AddCors(options =>
+                {
+                    options.AddPolicy(CorsPolicy, builder =>
+                        builder.WithOrigins("*")
+                            .WithHeaders("*")
+                            .WithMethods("*")
+                            .WithExposedHeaders("Content-Disposition"));
+                });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -136,6 +148,7 @@ namespace SmartIrrigationBackend
 
 
             app.UseRouting();
+            app.UseCors(CorsPolicy);
 
             app.UseAuthorization();
 

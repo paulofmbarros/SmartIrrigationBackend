@@ -81,7 +81,7 @@ namespace SmartIrrigation.Application.WeatherStation
             var hourlyData = _weatherHistoryDomain.GetHourlyDataOfPoint(data, stationAdded.Name);
             SmartIrrigationModels.Models.DTOS.Node node = _nodeDomain.GetNodeByLatLong(locationStation.Latitude, locationStation.Longitude);
 
-            _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.Id_Node);
+            _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.IdNode);
 
             return stationAdded;
         }

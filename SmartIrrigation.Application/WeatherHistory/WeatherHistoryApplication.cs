@@ -92,7 +92,7 @@ namespace SmartIrrigation.Application.WeatherHistory
                 DateTime.Now.AddDays(-9).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), null);
            var hourlyData = _weatherHistoryDomain.GetHourlyDataOfPoint(data, nearbyWeatherStation.Name.En);
            SmartIrrigationModels.Models.DTOS.Node node = _nodeDomain.GetNodeByLatLong(latitude, longitude);
-           return _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.Id_Node);
+           return _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.IdNode);
 
         }
 
@@ -104,7 +104,7 @@ namespace SmartIrrigation.Application.WeatherHistory
 
             foreach (var node in activeNodes)
             {
-                Location loc = _locationDomain.RetrieveLocationByNodeId(node.Id_Node);
+                Location loc = _locationDomain.RetrieveLocationByNodeId(node.IdNode);
                 SaveHourlyDataOfStationInDatabaseBasedOnCoords(loc.Latitude, loc.Longitude);
             }
         }
