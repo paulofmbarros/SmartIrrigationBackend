@@ -19,9 +19,8 @@ namespace SmartIrrigation.Domain.Node
             _nodeInformation = nodeInformation;
         }
 
-        public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,
-             bool isEnable, int? locationIdLocation, int IdNearStation, bool isLightOn, bool isSecurityCameraOn) =>
-            _nodeRepository.AddNewNode(address, isRealSensor, isSprinkler, isEnable, locationIdLocation, IdNearStation,  isLightOn,  isSecurityCameraOn);
+        public void AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation) =>
+            _nodeRepository.AddNewNode(parameters,  locationIdLocation,  idNearStation);
 
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>
             _nodeInformation.RetrieveNodeByStreet(street);
@@ -37,6 +36,8 @@ namespace SmartIrrigation.Domain.Node
         public void DectivateSprinkler(int idNode)=> _nodeRepository.DectivateSprinkler(idNode);
         public DashboardNodeData GetNodeDashboardDataById(int idNode) => _nodeRepository.GetNodeDashboardDataById(idNode);
 
+        public object TurnOnOrOfDevice(int idNode, string type, bool on) =>
+            _nodeRepository.TurnOnOrOfDevice(idNode, type, on);
 
     }
 }

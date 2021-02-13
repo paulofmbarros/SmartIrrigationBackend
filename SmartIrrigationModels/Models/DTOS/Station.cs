@@ -39,5 +39,10 @@ namespace SmartIrrigationModels.Models.DTOS
             Active = active;
             Id_Location = id_Location;
         }
+
+        public Station()
+        {
+            
+        }
     }
 }

@@ -8,12 +8,13 @@ namespace SmartIrrigation.Application.Node
 {
     public interface INodeApplication
     {
-        void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor,  bool isSprinkler, bool isEnable,bool isLightOn, bool isSecurityCameraOn );
+        void AddNewNode(AddNewNodeQueryParams parameters );
         SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street);
         SmartIrrigationModels.Models.DTOS.Node GetNodeByLatLong(string latitude, string longitude);
         List<SmartIrrigationModels.Models.DTOS.Node> GetAllActiveNodes();
         void ActivateSprinkler(int idNode);
         void DeactivateSprinkler(int idNode);
        DashboardNodeData GetNodeDashboardDataById(int idNode);
+       object TurnOnOrOfDevice(int idNode, string type, bool on);
     }
 }

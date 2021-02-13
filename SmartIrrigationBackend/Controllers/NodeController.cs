@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Newtonsoft.Json.Linq;
 using SmartIrrigation.Application.Node;
+using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.DTOS;
 using SmartIrrigationModels.Models.Geocoding;
 
@@ -23,9 +26,9 @@ namespace SmartIrrigationBackend.Controllers
         /// <param name="findStationParams"></param>
         /// <returns></returns>
         [HttpPost("AddNewNode")]
-        public IActionResult AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable = true, bool isLightOn=true, bool isSecurityCameraOn=true)
+        public IActionResult AddNewNode([FromBody] AddNewNodeQueryParams parameters)
         {
-            _nodeApplication.AddNewNode(address, isRealSensor, isSprinkler, isEnable, isLightOn, isSecurityCameraOn);
+            _nodeApplication.AddNewNode(parameters);
             return Ok();
         }
 
@@ -99,6 +102,18 @@ namespace SmartIrrigationBackend.Controllers
         public IActionResult GetNodeDashboardDataById([FromQuery] int idNode)
         {
             var data = _nodeApplication.GetNodeDashboardDataById(idNode);
+            return Ok(data);
+        }
+
+        /// <summary>
+        /// Add a new Weather station to database
+        /// </summary>
+        /// <param name="findStationParams"></param>
+        /// <returns></returns>
+        [HttpPost("TurnOnOrOfDevice")]
+        public IActionResult TurnOnOrOfDevice(int idNode, string type, bool on)
+        {
+            var data = _nodeApplication.TurnOnOrOfDevice(idNode, type, on);
             return Ok(data);
         }
 

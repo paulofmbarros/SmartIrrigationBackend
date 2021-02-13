@@ -10,6 +10,7 @@ using SmartIrrigation.Domain.BasicCRUD.District;
 using SmartIrrigation.Domain.BasicCRUD.Location;
 using SmartIrrigation.Domain.Geocoding;
 using SmartIrrigation.Domain.Node;
+using SmartIrrigation.Domain.Sensor;
 using SmartIrrigation.Domain.WeatherStation;
 using SmartIrrigationModels.Models;
 using SmartIrrigationModels.Models.DTOS;
@@ -26,11 +27,12 @@ namespace SmartIrrigation.Application.Node
         private readonly INodeDomain _nodeDomain;
         private readonly IDistrictDomain _districtDomain;
         private readonly ICountiesDomain _countyDomain;
+        private readonly ISensorDomain _sensorDomain;
         private readonly IWeatherStationApplication _weatherStationApplication;
 
         public NodeApplication(IGeocodingDomain geocodingDomain, ILocationDomain locationDomain, INodeDomain nodeDomain,
             IDistrictDomain districtDomain, ICountiesDomain countyDomain,
-            IWeatherStationApplication weatherStationApplication)
+            IWeatherStationApplication weatherStationApplication, ISensorDomain sensorDomain)
         {
             _geocodingDomain = geocodingDomain;
             _locationDomain = locationDomain;
@@ -38,16 +40,18 @@ namespace SmartIrrigation.Application.Node
             _districtDomain = districtDomain;
             _countyDomain = countyDomain;
             _weatherStationApplication = weatherStationApplication;
+            _sensorDomain = sensorDomain;
         }
 
-        public void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler,
-            bool isEnable, bool isLightOn, bool isSecurityCameraOn)
+        public void AddNewNode(AddNewNodeQueryParams parameters)
         {
+            GeocodingAddressModelQueryParams address = new GeocodingAddressModelQueryParams(parameters.Street, parameters.DoorNumber, parameters.PostalCode, parameters.County, parameters.District);
 
-
+            Station stationAdded=new Station();
             //TODO: REFACTOR THIS
             RootGeocodingDataModel<GeocodingAddressResponseModel> coords =
                 _geocodingDomain.GetCoordsFromAddress(address);
+
             Location location = _locationDomain.RetrieveLocation(coords.Data.FirstOrDefault().Latitude,
                 coords.Data.FirstOrDefault().Longitude);
             if (location == null)
@@ -60,13 +64,22 @@ namespace SmartIrrigation.Application.Node
 
             }
 
-            Station stationAdded =
-                _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication
-                    .AddWeatherStationToDatabase(address).Name);
+            //SE nao for um sensor real procurar a estação metereologica mais proxima, adicionar a bd, e depois adiconar o no a apontar para a estação
+            if (parameters.IsRealSensor != true)
+            {
+                 stationAdded =
+                    _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication
+                        .AddWeatherStationToDatabase(address).Name);
+            }
+            //se for um sensor real, adiciona o no com o IdNearStation a -1 e depois adiciona os sensores a apontar para o no No
 
-            _nodeDomain.AddNewNode(address, isRealSensor, isSprinkler, isEnable, location.Id_Location,
-                stationAdded.Id_Station ?? -1, isLightOn, isSecurityCameraOn);
+            _nodeDomain.AddNewNode(parameters, location.Id_Location,
+                stationAdded.Id_Station ?? -1);
 
+            foreach (var sensor in parameters.SensorsImplemented)
+            {
+                _sensorDomain.AddNewSensor(parameters.Street, sensor, location.Id_Location??-1);
+            }
 
 
         }
@@ -86,6 +99,8 @@ namespace SmartIrrigation.Application.Node
         public void DeactivateSprinkler(int idNode) => _nodeDomain.DectivateSprinkler(idNode);
         public DashboardNodeData GetNodeDashboardDataById(int idNode) => _nodeDomain.GetNodeDashboardDataById(idNode);
 
-
+        public object TurnOnOrOfDevice(int idNode, string type, bool on) =>
+            _nodeDomain.TurnOnOrOfDevice(idNode, type, on);
+        
     }
 }

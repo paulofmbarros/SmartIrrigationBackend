@@ -55,10 +55,7 @@ namespace SmartIrrigation.Application.Sensor
             if (nodeAdded == null)
             {
                 //TODO: VER ISTO POR CAUSA DO IDNEARSTATION
-                _nodeDomain.AddNewNode(address,true,false,false,location.Id_Location,0, true,true
-                
-                
-                );
+                //_nodeDomain.AddNewNode(address,location.Id_Location,0);
             }
             else
             {

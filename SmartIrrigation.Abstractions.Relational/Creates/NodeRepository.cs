@@ -22,15 +22,15 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             _config = config;
             _connectionString = _config.GetConnectionString("ConnectionStrings:mydb1");
         }
-        public void AddNewNode(GeocodingAddressModelQueryParams address,  bool isRealSensor,  bool isSprinkler,  bool isEnable, int? locationIdLocation, int IdNearStation, bool isLightOn, bool isSecurityCameraOn)
+        public void AddNewNode(AddNewNodeQueryParams parameters, int? IdLocation, int idNearStation)
         {
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
                 //string sqlSelect = "Select Count(*) From Node";
                 //int count =db.QueryFirst<int>(sqlSelect);
-                string sqlInsert = $"IF NOT EXISTS (SELECT Id_Node FROM Node WHERE Id_Location = @IdLocation) INSERT INTO Node (Description,Id_Location,Id_NearStation,Is_enable,is_RealSensor,is_SprinklerOn, is_LightOn, is_SecurityCameraOn) Values (@Description,@IdLocation,@Id_NearStation,@Is_enable,@Is_RealSensor,@Is_Sprinkler, @is_LightOn, @is_SecurityCameraOn)";
-                db.Execute(sqlInsert, new { Description = address.Street, IdLocation = locationIdLocation, Altitude = 0, Id_NearStation = IdNearStation, Is_enable = isEnable, Is_RealSensor = isRealSensor, Is_Sprinkler=isSprinkler, is_LightOn=isLightOn, is_SecurityCameraOn=isSecurityCameraOn });
+                string sqlInsert = $"IF NOT EXISTS (SELECT IdNode FROM Node WHERE IdLocation = @IdLocation) INSERT INTO Node (Description,IdLocation,IdNearStation,IsEnable,IsRealSensor,IsSprinklerOn, IsLightOn, IsSecurityCameraOn) Values (@Description,@IdLocation,@Id_NearStation,@Is_enable,@Is_RealSensor,@Is_Sprinkler, @is_LightOn, @is_SecurityCameraOn)";
+                db.Execute(sqlInsert, new { Description = parameters.Street, IdLocation = IdLocation, Altitude = 0, Id_NearStation = idNearStation, Is_enable = 1, Is_RealSensor = parameters.IsRealSensor, Is_Sprinkler=0, is_LightOn=0, is_SecurityCameraOn=0 });
             }
 
             //return affectedRows;
@@ -93,6 +93,42 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 
             }
             
+        }
+
+        public object TurnOnOrOfDevice(int idNode, string type,bool on)
+        {
+            string device = string.Empty;
+            type = type.Replace(" ", "");
+            if (type.ToLower() == "sensors")
+            {
+                using (IDbConnection db = new SqlConnection(_connectionString))
+                {
+                    int value = on ? 1 : 0;
+
+
+                    string sqlquery = $"Update [dbo].[Sensor] set IsEnable={value.ToString()} where IdNode={idNode}";
+                    return db.Execute(sqlquery);
+                }
+                
+
+            }
+            else
+            {
+                if (type.ToLower() == "light")
+                    device += "IsLightOn";
+                if (type.ToLower() == "sprinkler")
+                    device += "IsSprinklerOn";
+                if (type.ToLower() == "securitycamera")
+                    device += "IsSecurityCameraOn";
+
+
+                using (IDbConnection db = new SqlConnection(_connectionString))
+                {
+                    int value = on ? 1 : 0;
+                    string sqlInsert = $"Update [dbo].[Node] set {device}={value.ToString()} where IdNode={idNode}";
+                    return db.Execute(sqlInsert);
+                }
+            }
         }
     }
 }

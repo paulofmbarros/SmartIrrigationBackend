@@ -9,11 +9,11 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 {
     public interface INodeRepository
     {
-        void AddNewNode(GeocodingAddressModelQueryParams address, bool isRealSensor, bool isSprinkler, bool isEnable,
-            int? locationIdLocation, int IdNearStation, bool isLightOn, bool isSecurityCameraOn);
+        void AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation);
 
         void ActivateSprinkler(int idNode);
         void DectivateSprinkler(int idNode);
         DashboardNodeData GetNodeDashboardDataById(int idNode);
+        object TurnOnOrOfDevice(int idNode, string type,  bool on);
     }
 }
