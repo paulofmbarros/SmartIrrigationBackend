@@ -58,28 +58,43 @@ namespace SmartIrrigation.Application.Node
             {
                 District district = _districtDomain.GetDistrictByDistrictName(address.District);
                 County county = _countyDomain.GetCountyByCountyName(address.County);
-                _locationDomain.InsertLocationData(coords, district.Id_District, county.CountyId);
+                _locationDomain.InsertLocationData(location, district.Id_District, county.CountyId);
                 location = _locationDomain.RetrieveLocation(coords.Data.FirstOrDefault().Latitude,
                     coords.Data.FirstOrDefault().Longitude);
 
             }
 
+            
+
             //SE nao for um sensor real procurar a estação metereologica mais proxima, adicionar a bd, e depois adiconar o no a apontar para a estação
             if (parameters.IsRealSensor != true)
             {
+              
+                var stationAddedInfo = _weatherStationApplication
+                    .AddWeatherStationToDatabase(address);
                  stationAdded =
-                    _weatherStationApplication.RetrieveStationByStationName(_weatherStationApplication
-                        .AddWeatherStationToDatabase(address).Name);
+                    _weatherStationApplication.RetrieveStationByStationName(stationAddedInfo.station.Name);
+
+                Location locationStationAddded = stationAddedInfo.locationStations;
+
+               SmartIrrigationModels.Models.DTOS.Node nodeAdded =  _nodeDomain.AddNewNode(parameters, location.Id_Location,
+                     stationAdded.Id_Station ?? -1);
+
+                 _weatherStationApplication.AddWeatherStationDataToDatabase(stationAdded, locationStationAddded, nodeAdded);
+
             }
-            //se for um sensor real, adiciona o no com o IdNearStation a -1 e depois adiciona os sensores a apontar para o no No
-
-            _nodeDomain.AddNewNode(parameters, location.Id_Location,
-                stationAdded.Id_Station ?? -1);
-
-            foreach (var sensor in parameters.SensorsImplemented)
+            else
             {
-                _sensorDomain.AddNewSensor(parameters.Street, sensor, location.Id_Location??-1);
+                //se for um sensor real, adiciona o no com o IdNearStation a -1 e depois adiciona os sensores a apontar para o no No
+
+                _nodeDomain.AddNewNode(parameters, location.Id_Location, -1);
+
+                foreach (var sensor in parameters.SensorsImplemented)
+                {
+                    _sensorDomain.AddNewSensor(parameters.Street, sensor, location.Id_Location ?? -1);
+                }
             }
+            
 
 
         }

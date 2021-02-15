@@ -9,7 +9,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
 {
     public interface INodeRepository
     {
-        void AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation);
+        Node AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation);
 
         void ActivateSprinkler(int idNode);
         void DectivateSprinkler(int idNode);

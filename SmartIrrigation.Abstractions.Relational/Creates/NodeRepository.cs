@@ -22,7 +22,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             _config = config;
             _connectionString = _config.GetConnectionString("ConnectionStrings:mydb1");
         }
-        public void AddNewNode(AddNewNodeQueryParams parameters, int? IdLocation, int idNearStation)
+        public Node AddNewNode(AddNewNodeQueryParams parameters, int? IdLocation, int idNearStation)
         {
 
             using (IDbConnection db = new SqlConnection(_connectionString))
@@ -30,7 +30,18 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
                 //string sqlSelect = "Select Count(*) From Node";
                 //int count =db.QueryFirst<int>(sqlSelect);
                 string sqlInsert = $"IF NOT EXISTS (SELECT IdNode FROM Node WHERE IdLocation = @IdLocation) INSERT INTO Node (Description,IdLocation,IdNearStation,IsEnable,IsRealSensor,IsSprinklerOn, IsLightOn, IsSecurityCameraOn) Values (@Description,@IdLocation,@Id_NearStation,@Is_enable,@Is_RealSensor,@Is_Sprinkler, @is_LightOn, @is_SecurityCameraOn)";
-                db.Execute(sqlInsert, new { Description = parameters.Street, IdLocation = IdLocation, Altitude = 0, Id_NearStation = idNearStation, Is_enable = 1, Is_RealSensor = parameters.IsRealSensor, Is_Sprinkler=0, is_LightOn=0, is_SecurityCameraOn=0 });
+                int insertedRows=db.Execute(sqlInsert, new { Description = parameters.Street, IdLocation = IdLocation, Altitude = 0, Id_NearStation = idNearStation, Is_enable = 1, Is_RealSensor = parameters.IsRealSensor, Is_Sprinkler=0, is_LightOn=0, is_SecurityCameraOn=0 });
+                if (insertedRows > 0)
+                {
+                    string sqlRetriveveNode = $@"Select top 1 * From Node order by IdNode desc";
+                    return db.QueryFirstOrDefault<Node>(sqlRetriveveNode);
+                }
+                else
+                {
+                    string sqlRetriveveNode = $@"Select top 1 * From Node WHERE IdLocation = @IdLocation order by IdNode desc";
+                    return db.QueryFirstOrDefault<Node>(sqlRetriveveNode, new { IdLocation = IdLocation});
+                 
+                }
             }
 
             //return affectedRows;

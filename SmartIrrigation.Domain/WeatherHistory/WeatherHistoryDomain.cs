@@ -44,10 +44,10 @@ namespace SmartIrrigation.Domain.WeatherHistory
         }
 
         public int AddHourlyDataOfPointToDatabase(
-            RootWeatherDataModel<HourlyDataModel> hourlyData, string stationName, int idNode)
+            RootWeatherDataModel<HourlyDataModel> hourlyData, string stationName, int IdNode)
         {
             Station station = _WeatherStationRepository.GetWeatherStationFromDatabaseByStationName(stationName);
-            return _readHourlyRepository.AddReadHourly(hourlyData, true, station.Id_Station, idNode);
+            return _readHourlyRepository.AddReadHourly(hourlyData, true, station.Id_Station, IdNode);
         }
 
         public List<Read_Hourly> GetWeatherConditionsForAllActiveNodes()

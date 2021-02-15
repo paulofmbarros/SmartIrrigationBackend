@@ -31,7 +31,7 @@ namespace SmartIrrigation.Abstractions.Relational.Creates
             {
                 foreach (GeocodingAddressResponseModel location in data.Data)
                 {
-                    string sql = "IF NOT EXISTS (SELECT Latitude,Longitude FROM Location WHERE Latitude = @Latitude AND Longitude=@Longitude) INSERT INTO Location (Latitude,Longitude,Altitude,Description,District,Countie) Values (@Latitude,@Longitude,@Altitude,@Description,@Id_District,@Id_County)";
+                    string sql = "IF NOT EXISTS (SELECT Latitude,Longitude FROM Location WHERE Latitude = @Latitude AND Longitude=@Longitude) INSERT INTO Location (Latitude,Longitude,Altitude,Description,id_District,Id_Countie) Values (@Latitude,@Longitude,@Altitude,@Description,@Id_District,@Id_County)";
                     affectedRows += db.Execute(sql, new { Latitude = location.Latitude, Longitude = location.Longitude, Altitude=0, Description=location.Name, Id_District= Id_District, Id_County=Id_County });
 
                 }

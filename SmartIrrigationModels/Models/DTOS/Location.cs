@@ -37,5 +37,10 @@ namespace SmartIrrigationModels.Models.DTOS
             Id_Countie = id_Countie;
             Id_District = id_District;
         }
+
+        public Location()
+        {
+                
+        }
     }
 }

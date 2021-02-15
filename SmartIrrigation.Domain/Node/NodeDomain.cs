@@ -19,7 +19,7 @@ namespace SmartIrrigation.Domain.Node
             _nodeInformation = nodeInformation;
         }
 
-        public void AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation) =>
+        public SmartIrrigationModels.Models.DTOS.Node AddNewNode(AddNewNodeQueryParams parameters, int? locationIdLocation, int idNearStation) =>
             _nodeRepository.AddNewNode(parameters,  locationIdLocation,  idNearStation);
 
         public SmartIrrigationModels.Models.DTOS.Node GetNodeByStreet(string street) =>

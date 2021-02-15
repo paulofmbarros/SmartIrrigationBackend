@@ -31,7 +31,17 @@ namespace PositionStackAPI.ForwardGeocoding
             request.AddParameter("query", $"{queryparams.Street}, {queryparams.County},{queryparams.District}");
 
             var response = client.Execute(request);
-            return JsonConvert.DeserializeObject<RootGeocodingDataModel<GeocodingAddressResponseModel>>(response.Content);
+            RootGeocodingDataModel<GeocodingAddressResponseModel> content = JsonConvert.DeserializeObject<RootGeocodingDataModel<GeocodingAddressResponseModel>>(response.Content);
+
+
+            foreach (var data in content.Data)
+            {
+
+                data.Latitude.Replace(',', '.');
+                data.Longitude.Replace(',', '.');
+            }
+
+            return content;
 
         }
     }

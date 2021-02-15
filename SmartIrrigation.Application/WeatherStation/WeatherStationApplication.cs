@@ -48,7 +48,7 @@ namespace SmartIrrigation.Application.WeatherStation
         public RootWeatherStationModel<NearbyWeatherStationModel> FindNearByStation(FindNearbyStationModel findStationParams) =>
             _weatherStationDomain.FindNearByStation(findStationParams);
 
-        public Station AddWeatherStationToDatabase(GeocodingAddressModelQueryParams parameters)
+        public (Station station, Location locationStations) AddWeatherStationToDatabase(GeocodingAddressModelQueryParams parameters)
         {
             #region LocationOfParametersSent
 
@@ -66,24 +66,28 @@ namespace SmartIrrigation.Application.WeatherStation
             #endregion LocationOfParametersSent
 
             //Location id nearbyWeatherStation
-            Location locationStation = new Location(nearbyWeatherStation.Latitude.ToString(), nearbyWeatherStation.Longitude.ToString(), nearbyWeatherStation.Elevation.ToString(), nearbyWeatherStation.Name.En, district.Id_District, county.CountyId);
+            Location locationStation = new Location(nearbyWeatherStation.Latitude.ToString().Replace(',','.'), nearbyWeatherStation.Longitude.ToString().Replace(',', '.'), nearbyWeatherStation.Elevation.ToString().Replace(',', '.'), nearbyWeatherStation.Name.En, district.Id_District, county.CountyId);
 
             //Insert if not exists
             _locationDomain.InsertLocationData(locationStation, district.Id_District, county.CountyId);
 
             //Add Weather station if not exists
-            Station stationAdded = new Station(null, nearbyWeatherStation.Name.En, nearbyWeatherStation.Country, nearbyWeatherStation.Region, nearbyWeatherStation.National, nearbyWeatherStation.Wmo, nearbyWeatherStation.Icao, nearbyWeatherStation.Iata, nearbyWeatherStation.Elevation, nearbyWeatherStation.Timezone, nearbyWeatherStation.Active, _locationDomain.RetrieveLocation(nearbyWeatherStation.Latitude.ToString(), nearbyWeatherStation.Longitude.ToString()).Id_Location);
+            Station stationAdded = new Station(null, nearbyWeatherStation.Name.En, nearbyWeatherStation.Country, nearbyWeatherStation.Region, nearbyWeatherStation.National, nearbyWeatherStation.Wmo, nearbyWeatherStation.Icao, nearbyWeatherStation.Iata, nearbyWeatherStation.Elevation, nearbyWeatherStation.Timezone, nearbyWeatherStation.Active, _locationDomain.RetrieveLocation(nearbyWeatherStation.Latitude.ToString().Replace(',','.'), nearbyWeatherStation.Longitude.ToString().Replace(',', '.')).Id_Location);
             _weatherStationDomain.AddWeatherStationToDatabase(stationAdded);
 
+            
+
+            return (stationAdded, locationStation);
+        }
+
+        public void AddWeatherStationDataToDatabase(Station stationAdded, Location locationStation, SmartIrrigationModels.Models.DTOS.Node node)
+        {
             HourlyDataOfAPointQueryParams data = new HourlyDataOfAPointQueryParams(
-                float.Parse(locationquerycoords.Latitude, CultureInfo.InvariantCulture.NumberFormat), float.Parse(locationquerycoords.Longitude, CultureInfo.InvariantCulture.NumberFormat), null,
+                float.Parse(locationStation.Latitude.Replace(",","."), CultureInfo.InvariantCulture.NumberFormat), float.Parse(locationStation.Longitude.Replace(",", "."), CultureInfo.InvariantCulture.NumberFormat), null,
                 DateTime.Now.AddDays(-9).ToString("yyyy-MM-dd"), DateTime.Now.ToString("yyyy-MM-dd"), null);
             var hourlyData = _weatherHistoryDomain.GetHourlyDataOfPoint(data, stationAdded.Name);
-            SmartIrrigationModels.Models.DTOS.Node node = _nodeDomain.GetNodeByLatLong(locationStation.Latitude, locationStation.Longitude);
 
-            _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, nearbyWeatherStation.Name.En, node.IdNode);
-
-            return stationAdded;
+            _weatherHistoryDomain.AddHourlyDataOfPointToDatabase(hourlyData, stationAdded.Name, node.IdNode);
         }
     }
 }
