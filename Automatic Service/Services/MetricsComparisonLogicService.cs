@@ -17,9 +17,9 @@ namespace Automatic_Service.Services
                         x.DateReading.Hour == DateTime.Now.Hour || x.DateReading.Hour == DateTime.Now.Hour + 1)
                     .FirstOrDefault();
 
-                //TODO: work on this interval
+                
                 //if the actual tempeature is more or less than 2 degrees of the avg than activate de IS
-                if (nearestReadValue.Temperature <= avg + 2 || nearestReadValue.Temperature > avg - 2)
+                if (nearestReadValue.Temperature <= avg + 3 || nearestReadValue.Temperature > avg - 3)
                 {
                     return true;
                 }

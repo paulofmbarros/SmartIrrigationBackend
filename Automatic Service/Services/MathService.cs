@@ -40,7 +40,7 @@ namespace Automatic_Service.Services
         }
 
 
-        private static double getMedian(List<Double> data)
+        private static double getMedian(List<double> data)
         {
             if (data.Count % 2 == 0)
                 return ((data[data.Count / 2]) + (data[data.Count / 2 - 1])) / 2;
